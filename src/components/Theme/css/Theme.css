@@ -1,0 +1,12 @@
+.modeBtn {
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.1rem 0.7rem;
+  -webkit-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+  border-radius: 2rem;
+  cursor: pointer;
+  border: 0.1rem solid;
+  margin: 15px;
+}
+/*# sourceMappingURL=Theme.css.map */

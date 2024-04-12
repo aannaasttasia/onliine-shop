@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap");
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: #93939335;
+  padding: 0;
+}
+
+.header__logo {
+  padding: 10px 20px;
+  font-family: 'Comfortaa';
+  font-weight: 700;
+}
+
+.header__title {
+  padding: 10px 20px;
+  font-family: 'Comfortaa';
+  font-weight: 700;
+  margin-left: auto;
+}
+
+.header__shopping {
+  color: #2555be;
+}
+/*# sourceMappingURL=Header.css.map */

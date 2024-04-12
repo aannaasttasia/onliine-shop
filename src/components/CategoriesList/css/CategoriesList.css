@@ -1,0 +1,28 @@
+li {
+  list-style-type: none;
+  cursor: pointer;
+}
+
+.categories-ul {
+  padding: 0;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[6];
+      grid-template-columns: repeat(6, 1fr);
+  -webkit-column-gap: 5px;
+          column-gap: 5px;
+  row-gap: 20px;
+}
+
+.categories-list {
+  margin: 15px 0;
+  border-bottom: 1px solid #ebebeb;
+}
+
+@media screen and (max-width: 768px) {
+  .categories-ul {
+    -ms-grid-columns: (minmax(150px, 1fr))[auto-fit];
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+}
+/*# sourceMappingURL=CategoriesList.css.map */

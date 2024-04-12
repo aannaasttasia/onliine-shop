@@ -1,0 +1,28 @@
+li {
+  list-style-type: none;
+}
+
+.list-ul {
+  padding: 0;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[4];
+      grid-template-columns: repeat(4, 1fr);
+  -webkit-column-gap: 5px;
+          column-gap: 5px;
+  row-gap: 2px;
+  padding: 0px 50px;
+  min-height: 90vh;
+}
+
+.list {
+  margin: 25px;
+}
+
+@media screen and (max-width: 768px) {
+  .list-ul {
+    -ms-grid-columns: (minmax(150px, 1fr))[auto-fit];
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+}
+/*# sourceMappingURL=ProductsList.css.map */
