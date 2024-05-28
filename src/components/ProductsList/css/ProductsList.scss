@@ -2,17 +2,17 @@ li {
   list-style-type: none;
 }
 
-.list-ul {
+.list-ul-products {
   padding: 0;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   column-gap: 5px;
   row-gap: 2px;
   padding: 0px 50px;
-  min-height: 90vh;
+  min-height: 70vh;
 }
 
-.list {
+.list-products {
   margin: 25px;
 }
 

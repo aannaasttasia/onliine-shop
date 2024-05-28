@@ -10,6 +10,19 @@ import {
 import { useEffect } from "react";
 import { cartAtom, countAtom } from "./cartState";
 import Loader from "../Loader/Loader";
+import "@/app/globals.css";
+
+const calculateTotalPrice = (products: ProductType[]): number => {
+    let totalPrice = 0;
+    products.forEach((product) => {
+        const productPrice = parseFloat(product.price);
+        // console.log(typeof productPrice);
+        totalPrice += productPrice;
+        // console.log(product.price);
+    });
+    console.log(totalPrice);
+    return totalPrice;
+};
 
 export default function CartComponent() {
     const [cartStorage, setCartStorage] = useAtom(cartAtom);
@@ -34,13 +47,19 @@ export default function CartComponent() {
     return (
         <section>
             {cartStorage && cartStorage.length > 0 ? (
-                <ul className="list-ul">
-                    {cartStorage.map((cartItem) => (
-                        <li key={cartItem.id}>
-                            <CartProducts product={cartItem} />
-                        </li>
-                    ))}
-                </ul>
+                <div className="cart">
+                    <ul className="list-ul">
+                        {cartStorage.map((cartItem) => (
+                            <li key={cartItem.id}>
+                                <CartProducts product={cartItem} />
+                            </li>
+                        ))}
+                    </ul>
+                    <p className="total-price">
+                        Total price: ${calculateTotalPrice(cartStorage)}
+                    </p>
+                    <button className="pay-btn">Pay</button>
+                </div>
             ) : (
                 <Loader />
             )}
@@ -54,7 +73,7 @@ export function useAddToCart() {
 
     function addToCart(product: ProductType) {
         setCartList([...cartList, product]);
-        console.log(product);
+        // console.log(product);
         addProduct(product);
         setCounter((prev) => prev + 1);
     }

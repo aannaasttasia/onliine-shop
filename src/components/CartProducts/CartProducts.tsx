@@ -2,19 +2,8 @@ import { Component, useState } from "react";
 import { useRemoveFromCart } from "../CartComponent/CartComponent";
 import "@/app/globals.css";
 import "./css/CartProducts.scss";
+import { ProductType } from "../Product/Product";
 
-export interface ProductType {
-    id: number;
-    title: string;
-    description: string;
-    price: number;
-    discountPercentage: number;
-    rating: number;
-    stock: number;
-    brand: string;
-    category: string;
-    thumbnail: string;
-}
 
 const CartProducts = ({ product }: { product: ProductType }) => {
     const [isHovered, setIsHovered] = useState(false);

@@ -6,12 +6,13 @@ import { ProductType } from "../Product/Product";
 import { ProductsList } from "../ProductsList/ProductsList";
 import { countAtom } from "../CartComponent/cartState";
 import { useAtom } from "jotai";
+import { CategoryType } from "@/pages/categories";
 
 export function CategoriesList({
     categories,
     productsDef,
 }: {
-    categories: string[];
+    categories: CategoryType[];
     productsDef: ProductType[];
 }) {
     const [products, setProducts] = useState<ProductType[]>(productsDef);
@@ -28,7 +29,6 @@ export function CategoriesList({
             setProducts(response.data.products);
             setActiveCategoryIndex(index);
             console.log(index);
-            console.log(count);
         } catch (error) {
             console.error("Error fetching products by category:", error);
         }
@@ -38,15 +38,15 @@ export function CategoriesList({
         <section className="categories-list">
             <h1>Categories</h1>
             <ul className="categories-ul">
-                {categories.map((category: string, index: number) => (
-                    <li key={category}>
+                {categories.map((category: CategoryType, index: number) => (
+                    <li key={category.name}>
                         <div
                             className={
                                 index === activeCategoryIndex ? "active" : ""
                             }
-                            onClick={() => handleCategoryClick(category, index)}
+                            onClick={() => handleCategoryClick(category.slug, index)}
                         >
-                            {category}
+                            {category.name}
                         </div>
                     </li>
                 ))}
