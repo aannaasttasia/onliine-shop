@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { ProductType } from "../CartProducts/CartProducts";
+import { ProductType } from "../Product/Product";
 import { getProductsFromCart } from "@/api/serverRequests";
 
 export const cartAtom = atom<ProductType[]>([]);

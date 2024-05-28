@@ -1,16 +1,16 @@
 import { Component, useState } from "react";
 import "./css/Product.scss";
 import { useAddToCart } from "../CartComponent/CartComponent";
+import { CategoryType } from "@/pages/categories";
 
 export interface ProductType {
     id: number;
     title: string;
     description: string;
-    price: number;
+    price: string;
     discountPercentage: number;
     rating: number;
     stock: number;
-    brand: string;
     category: string;
     thumbnail: string;
 }

@@ -1,4 +1,4 @@
-import { ProductType } from "@/components/CartProducts/CartProducts";
+import { ProductType } from "@/components/Product/Product";
 import axios from "axios";
 import { URL } from "@/api/url";
 
@@ -28,8 +28,7 @@ export async function addProduct(product: ProductType) {
             discountPercentage: product.discountPercentage,
             rating: product.rating,
             stock: product.stock,
-            brand: product.brand,
-            category: product.category,
+            // category: product.category,
             thumbnail: product.thumbnail,
         })
         .then(function (response) {
@@ -38,7 +37,8 @@ export async function addProduct(product: ProductType) {
         .catch(function (error) {
             console.log(error);
         });
-    console.log(`Adder post with ID ${product.id}`);
+    console.log(`Added post with ID ${product.id}`);
+    console.log(product)
 }
 
 export async function deleteProduct(id: number) {
