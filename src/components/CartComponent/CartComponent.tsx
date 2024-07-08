@@ -1,14 +1,9 @@
 import { atom, useAtom, useSetAtom } from "jotai";
 import * as React from "react";
-import Product, { ProductType } from "../Product/Product";
+import { ProductType } from "../Product/Product";
 import CartProducts from "../CartProducts/CartProducts";
-import {
-    addProduct,
-    deleteProduct,
-    getProductsFromCart,
-} from "@/api/serverRequests";
 import { useEffect } from "react";
-import { cartAtom, countAtom } from "./cartState";
+import {countAtom } from "./cartState";
 import Loader from "../Loader/Loader";
 import "@/app/globals.css";
 
@@ -16,37 +11,33 @@ const calculateTotalPrice = (products: ProductType[]): number => {
     let totalPrice = 0;
     products.forEach((product) => {
         const productPrice = parseFloat(product.price);
-        // console.log(typeof productPrice);
         totalPrice += productPrice;
-        // console.log(product.price);
+        console.log(product.price);
     });
-    console.log(totalPrice);
-    return totalPrice;
+    console.log(totalPrice.toFixed(2));
+    const totalPriceFixed = parseFloat(totalPrice.toFixed(2));
+    return totalPriceFixed;
 };
 
 export default function CartComponent() {
-    const [cartStorage, setCartStorage] = useAtom(cartAtom);
-    const [, setCounter] = useAtom(countAtom);
+    const [cartStorage, setCartStorage] = React.useState<ProductType[]>([]);
+    const [productAmount, setProductsAmount] = useAtom(countAtom)
 
     useEffect(() => {
-        const fetchCart = async () => {
-            try {
-                const res = await getProductsFromCart();
-                const products = res.products;
-                setCartStorage(products);
-                setCounter(res.count);
-                console.log("comp", res.count);
-            } catch (error) {
-                console.error("Failed to fetch products:", error);
-            }
-        };
-
-        fetchCart();
-    }, [setCartStorage]);
+        const cartStorageString = localStorage.getItem("cartProducts");
+        if (cartStorageString) {
+            const data = JSON.parse(cartStorageString)
+            setCartStorage(data);
+            setProductsAmount(data.length)
+            console.log("cartStorage:", cartStorage);
+        } else {
+            console.log("No cart products stored in localStorage");
+        }
+    }, []);
 
     return (
         <section>
-            {cartStorage && cartStorage.length > 0 ? (
+            {cartStorage ? (
                 <div className="cart">
                     <ul className="list-ul">
                         {cartStorage.map((cartItem) => (
@@ -67,34 +58,46 @@ export default function CartComponent() {
     );
 }
 
-export function useAddToCart() {
-    const [cartList, setCartList] = useAtom(cartAtom);
-    const setCounter = useSetAtom(countAtom);
-
-    function addToCart(product: ProductType) {
-        setCartList([...cartList, product]);
-        // console.log(product);
-        addProduct(product);
-        setCounter((prev) => prev + 1);
+export function useAddToCart(item: ProductType) {
+    try {
+        const cart = localStorage.getItem("cartProducts");
+        let existingCart: ProductType[] = [];
+        if (cart) {
+            try {
+                existingCart = JSON.parse(cart);
+                console.log("ex cart", existingCart);
+            } catch (error) {
+                console.error("Failed to parse cart from localStorage:", error);
+            }
+        }
+        existingCart.push(item);
+        localStorage.setItem("cartProducts", JSON.stringify(existingCart));
+        console.log(existingCart);
+    } catch (error) {
+        console.error("Failed to add item to cart:", error);
     }
-
-    return addToCart;
 }
 
-export function useRemoveFromCart(itemId: number) {
-    const [cartList, setCartList] = useAtom(cartAtom);
-    const setCounter = useSetAtom(countAtom);
-
-    const removeItem = async () => {
+export function useRemoveFromCart() {
+    const removeFromCart = (itemId: number) => {
         try {
-            await deleteProduct(itemId);
-            const updatedCart = cartList.filter((item) => item.id !== itemId);
-            setCartList(updatedCart);
-            setCounter((prev) => prev - 1);
+            const cart = localStorage.getItem("cartProducts");
+            let existingCart: ProductType[] = [];
+            if (cart) {
+                try {
+                    existingCart = JSON.parse(cart);
+                    console.log("ex cart", existingCart);
+                } catch (error) {
+                    console.error("Failed to parse cart from localStorage:", error);
+                }
+            }
+            const filtered = existingCart.filter(item => item.id !== itemId); 
+            console.log(filtered);
+            localStorage.setItem("cartProducts", JSON.stringify(filtered));
         } catch (error) {
-            console.error("Failed to remove item from cart:", error);
+            console.error("Failed to delete item from cart:", error);
         }
     };
 
-    return removeItem;
+    return removeFromCart;
 }

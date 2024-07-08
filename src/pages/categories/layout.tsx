@@ -2,8 +2,7 @@ import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
 import { Links } from "@/components/links";
 import "@/app/globals.css";
-import { Provider as JotaiProvider } from "jotai";
-import DarkMode from "@/components/Theme/Theme";
+import { Provider as JotaiProvider, Provider } from "jotai";
 
 export default function CategoriesLayout({
     children,
@@ -11,12 +10,11 @@ export default function CategoriesLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <>
+        <Provider>
             <Header />
-            <DarkMode />
             <Links />
             {children}
             <Footer />
-        </>
+        </Provider>
     );
 }

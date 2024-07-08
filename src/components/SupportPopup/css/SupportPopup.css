@@ -1,0 +1,21 @@
+.support-popup {
+  padding: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.support__email, .support__description {
+  margin: 5px;
+  padding: 10px;
+}
+
+.support__send-btn {
+  margin: 5px;
+  padding: 2px;
+}
+/*# sourceMappingURL=SupportPopup.css.map */

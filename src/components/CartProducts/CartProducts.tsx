@@ -7,7 +7,7 @@ import { ProductType } from "../Product/Product";
 
 const CartProducts = ({ product }: { product: ProductType }) => {
     const [isHovered, setIsHovered] = useState(false);
-    const removeFromCart = useRemoveFromCart(product.id);
+    const removeFromCart = useRemoveFromCart();
 
     const handleMouseEnter = () => {
         setIsHovered(true);
@@ -18,7 +18,7 @@ const CartProducts = ({ product }: { product: ProductType }) => {
     };
 
     const handleRemoveFromCart = () => {
-        removeFromCart();
+        removeFromCart(product.id);
     };
 
     return (

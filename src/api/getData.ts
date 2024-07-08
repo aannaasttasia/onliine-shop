@@ -3,7 +3,6 @@ import { ProductType } from "../components/Product/Product";
 
 const data_api = process.env.REACT_APP_DATA_API_URL
 
-
 export async function getData():Promise<ProductType[]> {
     if (!data_api) {
       throw new Error("REACT_APP_DATA_API_URL is not defined");

@@ -20,6 +20,7 @@ img {
   border-radius: 6px;
   border: thick double #a1a7a916;
   position: relative;
+  cursor: default;
 }
 
 .product-name {
@@ -43,6 +44,18 @@ figure {
   color: #fff;
   border: none;
   cursor: pointer;
+  z-index: 20;
+}
+
+.product__popup {
+  background-color: rgb(210, 210, 210);
+  padding: 50px;
+  width: 50%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
 }
 
 @media (max-width: 1000px) {

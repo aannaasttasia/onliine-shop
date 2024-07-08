@@ -8,11 +8,18 @@ export interface Products {
 }
 
 export async function getProductsFromCart(): Promise<Products> {
-    const response = await axios.get("http://localhost:3000/products");
-    const products = response.data;
-    const count = products.length;
-    console.log(products);
-    console.log(count);
+    const response = localStorage.getItem('cartProducts')
+    let products: ProductType[]=[]
+    let count = 0;
+    if(response){
+        try {
+            products = JSON.parse(response)
+            console.log(products)
+            count = products.length
+        } catch (error) {
+            console.log("Error loading cart items count")
+        }
+    }
     return {
         products: products,
         count: count,
@@ -21,7 +28,7 @@ export async function getProductsFromCart(): Promise<Products> {
 
 export async function addProduct(product: ProductType) {
     await axios
-        .post(`${URL}product/new`, {
+        .post(`${URL}/product/new`, {
             title: product.title,
             description: product.description,
             price: product.price,
@@ -43,7 +50,7 @@ export async function addProduct(product: ProductType) {
 
 export async function deleteProduct(id: number) {
     axios
-        .delete(`${URL}product/${id}`)
+        .delete(`${URL}/product/${id}`)
         .then((response) => {
             console.log(`Deleted post with ID ${id}`);
         })

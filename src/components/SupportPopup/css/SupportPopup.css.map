@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,cAAc,CAAA;EACV,OAAO,EAAE,IAAI;EACb,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,MAAM;CACzB;;AAED,AAAA,eAAe,EAAE,qBAAqB,CAAA;EAClC,MAAM,EAAE,GAAG;EACX,OAAO,EAAE,IAAI;CAChB;;AAED,AAAA,kBAAkB,CAAA;EACd,MAAM,EAAE,GAAG;EACX,OAAO,EAAE,GAAG;CACf",
+    "sources": [
+        "SupportPopup.scss"
+    ],
+    "names": [],
+    "file": "SupportPopup.css"
+}

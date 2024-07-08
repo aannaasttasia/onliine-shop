@@ -1,0 +1,15 @@
+.support-popup{
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.support__email, .support__description{
+    margin: 5px;
+    padding: 10px;
+}
+
+.support__send-btn{
+    margin: 5px;
+    padding: 2px;
+}

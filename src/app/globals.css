@@ -25,11 +25,13 @@ main{
 
 .nav{
   border-bottom: 1px solid #ebebeb;
+  padding: 2%;
 }
 
 .nav-li{
   text-decoration: none;
   list-style-type: none;
+  cursor: default;
 }
 
 a{
@@ -48,6 +50,7 @@ a{
 }
 .active{
   color: rgba(203, 197, 197, 0.836);
+  cursor: default;
 }
 
 li{
@@ -79,11 +82,6 @@ li{
   font-weight: 600;
 }
 
-.pay-btn{
-  /* float: right; */
-  margin: 15px;
-  
-}
 
 .pay-btn {
   appearance: none;
@@ -98,7 +96,6 @@ li{
   font-size: 16px;
   font-weight: 600;
   line-height: normal;
-  margin: 0;
   min-height: 40px;
   min-width: 0;
   outline: none;
@@ -111,6 +108,8 @@ li{
   touch-action: manipulation;
   /* width: 100%; */
   will-change: transform;
+  margin-bottom: 15px;
+
 }
 
 .pay-btn:disabled {

@@ -4,6 +4,8 @@ import "@/app/globals.css";
 import { countAtom, asyncDataAtom } from "./CartComponent/cartState";
 import { useAtom, useAtomValue } from "jotai";
 
+
+
 export function Links() {
     const pathname = usePathname();
     const cartCount = useAtomValue(countAtom);

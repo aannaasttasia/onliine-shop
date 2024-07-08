@@ -1,7 +1,7 @@
 import { Component, useState } from "react";
 import "./css/Product.scss";
 import { useAddToCart } from "../CartComponent/CartComponent";
-import { CategoryType } from "@/pages/categories";
+import Popup from "reactjs-popup";
 
 export interface ProductType {
     id: number;
@@ -17,7 +17,6 @@ export interface ProductType {
 
 const Product = ({ product }: { product: ProductType }) => {
     const [isHovered, setIsHovered] = useState(false);
-    const addToCart = useAddToCart();
 
     const handleMouseEnter = () => {
         setIsHovered(true);
@@ -28,7 +27,8 @@ const Product = ({ product }: { product: ProductType }) => {
     };
 
     const handleAddToCart = () => {
-        addToCart(product);
+        useAddToCart(product);
+        setIsHovered(false);
     };
 
     return (
@@ -38,21 +38,36 @@ const Product = ({ product }: { product: ProductType }) => {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
-            <h1 className="product-name">{product.title}</h1>
-            <figure>
-                <div className="img-wrapper">
-                    <img src={product.thumbnail} alt="picture-of-product" />
+            <div>
+                <h1 className="product-name">{product.title}</h1>
+                <figure>
+                    <div className="img-wrapper">
+                        <img src={product.thumbnail} alt="picture-of-product" />
+                    </div>
+                    <figcaption>
+                        <p className="product-price">${product.price}</p>
+                    </figcaption>
+                </figure>
+                <div className="product-btn">
+                    {isHovered && (
+                        <Popup
+                            trigger={
+                                <button
+                                    className="buy-button"
+                                    onClick={handleAddToCart}
+                                >
+                                    Buy
+                                </button>
+                            }
+                            position="bottom center"
+                            on="hover"
+                        >
+                            <div className="product__popup">
+                                {product.description}
+                            </div>
+                        </Popup>
+                    )}
                 </div>
-                <figcaption>
-                    <p className="product-price">${product.price}</p>
-                </figcaption>
-            </figure>
-            <div className="product-btn">
-                {isHovered && (
-                    <button className="buy-button" onClick={handleAddToCart}>
-                        Buy
-                    </button>
-                )}
             </div>
         </article>
     );
