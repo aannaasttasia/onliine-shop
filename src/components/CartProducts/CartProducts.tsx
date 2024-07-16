@@ -1,13 +1,13 @@
 import { Component, useState } from "react";
-import { useRemoveFromCart } from "../CartComponent/CartComponent";
 import "@/app/globals.css";
 import "./css/CartProducts.scss";
 import { ProductType } from "../Product/Product";
+import { useCart } from "../CartComponent/cartState";
 
 
 const CartProducts = ({ product }: { product: ProductType }) => {
     const [isHovered, setIsHovered] = useState(false);
-    const removeFromCart = useRemoveFromCart();
+    const {removeFromCart} = useCart();
 
     const handleMouseEnter = () => {
         setIsHovered(true);

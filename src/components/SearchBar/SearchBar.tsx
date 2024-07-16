@@ -20,8 +20,8 @@ export default function SearchBar({ products, onSearch }: SearchBarProps) {
 
 
     return (
-        <div className="search-form">
-            <input className="search-form__input" type="text" onChange={handleChangeSearch} placeholder="Search..."/>
-        </div>
+        <form className="search-form">
+            <input className="search-form__input" type="text" onChange={handleChangeSearch} placeholder="Search for..."/>
+        </form>
     );
 }

@@ -7,15 +7,35 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  row-gap: 15px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .support__email, .support__description {
-  margin: 5px;
-  padding: 10px;
+  padding: 4%;
+  border: 1px solid #ccc;
+  width: 300px;
+}
+
+.support__description {
+  height: 150px;
 }
 
 .support__send-btn {
-  margin: 5px;
-  padding: 2px;
+  padding: 1% 5%;
+  background-color: #a5a5a5;
+  color: #fff;
+  border: none;
+  font-size: 1rem;
+  border-radius: 3px;
+  cursor: pointer;
+  -webkit-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+}
+
+.support__send-btn:hover {
+  background-color: #727272;
 }
 /*# sourceMappingURL=SupportPopup.css.map */
