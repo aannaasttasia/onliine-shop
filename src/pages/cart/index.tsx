@@ -2,8 +2,9 @@ import CartComponent from "@/components/CartComponent/CartComponent";
 import RootLayout from "../layout";
 import "@/app/globals.css";
 import CartLayout from "./layout";
+import Auth from "@/components/Login/Auth";
 
-export default function Cart() {
+function Cart() {
     return (
         <CartLayout>
             <section>Cart</section>
@@ -11,3 +12,5 @@ export default function Cart() {
         </CartLayout>
     );
 }
+
+export default Auth(Cart)

@@ -9,6 +9,7 @@ import { countAtom } from "@/components/CartComponent/cartState";
 import Loader from "@/components/Loader/Loader";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import NotFound from "@/components/NotFound/NotFound";
+import Auth from "@/components/Login/Auth";
 
 const productsAtom = atom<ProductType[]>([]);
 
@@ -17,19 +18,24 @@ export const getServerSideProps = async () => {
     return { props: { products: products || [] } };
 };
 
-export default function Home({ products }: { products: ProductType[] }) {
+
+function Home({ products }: { products: ProductType[] }) {
     const [storedProducts, setStoredProducts] = useAtom(productsAtom);
     const [, setCartCount] = useAtom(countAtom);
     const [loadedHomePage, setLoadedHomePage] = useState<boolean>(false);
-    const [filteredProducts, setFilteredProducts] = useState<ProductType[]>(products);
+    const [filteredProducts, setFilteredProducts] =
+        useState<ProductType[]>(products);
+    const [isClient, setIsClient] = useState<boolean>(false);
 
     useEffect(() => {
+        setIsClient(true);
         if (products && products.length > 0) {
             setStoredProducts(products);
             if (storedProducts) setLoadedHomePage(true);
         } else {
             setStoredProducts([]);
         }
+
         const fetchCart = async () => {
             try {
                 const res = await getProductsFromCart();
@@ -41,12 +47,17 @@ export default function Home({ products }: { products: ProductType[] }) {
             }
         };
         fetchCart();
+
     }, [setCartCount, products, setStoredProducts]);
 
     const handleSearch = (filteredProducts: ProductType[]) => {
         setFilteredProducts(filteredProducts);
         console.log(filteredProducts);
     };
+
+    if (!isClient) {
+        return <Loader />;
+    }
 
     return (
         <Provider>
@@ -65,3 +76,5 @@ export default function Home({ products }: { products: ProductType[] }) {
         </Provider>
     );
 }
+
+export default Auth(Home)

@@ -2,9 +2,6 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import "@/app/globals.css";
 import { countAtom, asyncDataAtom, useCart } from "./CartComponent/cartState";
-import { useAtom, useAtomValue } from "jotai";
-
-
 
 export function Links() {
     const pathname = usePathname();

@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { countAtom } from "@/components/CartComponent/cartState";
 import { getProductsFromCart } from "@/api/serverRequests";
 import Loader from "@/components/Loader/Loader";
+import Auth from "@/components/Login/Auth";
 
 export interface CategoryType {
     slug: string;
@@ -33,7 +34,7 @@ export const getServerSideProps = async () => {
     }
 };
 
-export default function Categories({
+function Categories({
     categories,
     productsDef,
 }: {
@@ -70,3 +71,5 @@ export default function Categories({
         </CategoriesLayout>
     );
 }
+
+export default Auth(Categories)

@@ -1,6 +1,5 @@
 import { Component, useEffect, useRef, useState } from "react";
 import "./css/Product.scss";
-import Popup from "reactjs-popup";
 import { useCart } from "../CartComponent/cartState";
 import ProductInfo from "../ProductInfo/ProductInfo";
 
@@ -18,7 +17,6 @@ export interface ProductType {
 }
 
 const Product = ({ product }: { product: ProductType }) => {
-    const [isHovered, setIsHovered] = useState<boolean>(false);
     const [showProductInfo, setShowProductInfo] = useState<boolean>(false);
     const overlayProductRef = useRef<HTMLDivElement>(null);
     const { addToCart } = useCart();
@@ -31,36 +29,21 @@ const Product = ({ product }: { product: ProductType }) => {
             ) {
                 console.log("clicked outside of modal");
                 setShowProductInfo(false);
-                setIsHovered(false);
             }
         }
         window.addEventListener("click", handler);
         return () => window.removeEventListener("click", handler);
     }, []);
 
-    const handleMouseEnter = () => {
-        setIsHovered(true);
-    };
-
-    const handleMouseLeave = () => {
-        setIsHovered(false);
-    };
-
     const handleItemClick = () => {
         setShowProductInfo(true);
     };
     const handleAddToCart = () => {
         addToCart(product);
-        setIsHovered(false);
     };
 
     return (
-        <article
-            key={product.id}
-            className="product"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-        >
+        <article key={product.id} className="product">
             <div>
                 <h1 className="product-name">{product.title}</h1>
                 <figure>
@@ -72,14 +55,9 @@ const Product = ({ product }: { product: ProductType }) => {
                     </figcaption>
                 </figure>
                 <div className="product-btn">
-                    {isHovered && (
-                        <button
-                            className="buy-button"
-                            onClick={handleAddToCart}
-                        >
-                            Buy
-                        </button>
-                    )}
+                    <button className="buy-button" onClick={handleAddToCart}>
+                        Add to cart
+                    </button>
                 </div>
             </div>
             {showProductInfo && (
