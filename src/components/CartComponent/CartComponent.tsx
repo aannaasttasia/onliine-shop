@@ -7,10 +7,11 @@ import { countAtom, useCart } from "./cartState";
 import Loader from "../Loader/Loader";
 import "@/app/globals.css";
 
+
 const calculateTotalPrice = (products: ProductType[]): number => {
     let totalPrice = 0;
     products.forEach((product) => {
-        const productPrice = parseFloat(product.price);
+        const productPrice = parseFloat(product.price) * product.quantity;
         totalPrice += productPrice;
     });
     const totalPriceFixed = parseFloat(totalPrice.toFixed(2));
@@ -41,6 +42,8 @@ export default function CartComponent() {
                         {cartStorage.map((cartItem) => (
                             <li key={cartItem.id}>
                                 <CartProducts product={cartItem} />
+                                <div>Quantity: {cartItem.quantity}</div>
+
                             </li>
                         ))}
                     </ul>

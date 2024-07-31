@@ -21,7 +21,7 @@ img {
   border-radius: 6px;
   border: thick double #a1a7a916;
   position: relative;
-  cursor: default;
+  cursor: pointer;
 }
 
 .product-name {

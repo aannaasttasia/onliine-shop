@@ -21,16 +21,23 @@ export function useCart() {
         if (cartStorageString) {
             const data = JSON.parse(cartStorageString);
             setCart(data);
-            setCartCount(data.length);
+            setCartCount(data.reduce((total: number, product:ProductType) => total + product.quantity, 0));
         }
     }, []);
 
     const addToCart = (item: ProductType) => {
         try {
-            const updatedCart = [...cart, item];
-            localStorage.setItem("cartProducts", JSON.stringify(updatedCart));
-            setCart(updatedCart);
-            setCartCount(updatedCart.length);
+            const cartStorage = localStorage.getItem("cartProducts");
+            let existingCart: ProductType[] = cartStorage ? JSON.parse(cartStorage) : [];
+            const productIndex = existingCart.findIndex(cartItem => cartItem.id === item.id);
+            if (productIndex >= 0) {
+                existingCart[productIndex].quantity += 1;
+            } else {
+                existingCart.push({ ...item, quantity: 1 });
+        }
+            localStorage.setItem("cartProducts", JSON.stringify(existingCart));
+            setCart(existingCart);
+            setCartCount(existingCart.reduce((total: number, product: ProductType) => total + product.quantity, 0));
         } catch (error) {
             console.error("Failed to add item to cart:", error);
         }
@@ -38,10 +45,18 @@ export function useCart() {
 
     const removeFromCart = (itemId: number) => {
         try {
-            const updatedCart = cart.filter(item => item.id !== itemId);
-            localStorage.setItem("cartProducts", JSON.stringify(updatedCart));
-            setCart(updatedCart);
-            setCartCount(updatedCart.length);
+            const cartStorage = localStorage.getItem("cartProducts");
+            let existingCart: ProductType[] = cartStorage ? JSON.parse(cartStorage) : [];
+            const productIndex = cart.findIndex(cartItem => cartItem.id === itemId);
+            console.log(productIndex)
+            if (existingCart[productIndex].quantity > 1){
+                existingCart[productIndex].quantity -=1
+            } else {
+                existingCart = existingCart.filter(item => item.id !== itemId);
+            }
+            localStorage.setItem("cartProducts", JSON.stringify(existingCart));
+            setCart(existingCart);
+            setCartCount(existingCart.reduce((total: number, product: ProductType) => total + product.quantity, 0));
         } catch (error) {
             console.error("Failed to delete item from cart:", error);
         }

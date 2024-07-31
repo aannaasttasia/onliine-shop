@@ -40,9 +40,10 @@ main{
 
 a{
   text-decoration: none;
-  color: rgba(0, 0, 0, 0.729);
+  color: rgba(132, 132, 132, 0.729);
   text-align: center;
 }
+
 
 .nav-ul{
   display: grid;
@@ -52,8 +53,14 @@ a{
   padding: 0;
 
 }
+
 .active{
-  color: rgba(203, 197, 197, 0.836);
+  color: rgba(220, 220, 220, 0.836);
+  cursor: default;
+}
+
+.dark-mode .active{
+  color: rgba(255, 255, 255, 0.836);
   cursor: default;
 }
 
