@@ -1,16 +1,41 @@
-import CartComponent from "@/components/CartComponent/CartComponent";
 import RootLayout from "../layout";
 import "@/app/globals.css";
 import CartLayout from "./layout";
-import Auth from "@/components/Login/Auth";
+import { useState } from "react";
+import useToken from "@/components/Login/UseToken";
+import withAuth from "@/components/Login/Auth";
+import Cart from "@/components/Cart/Cart";
 
-function Cart() {
+interface CartJSXProps {
+    handleSetPayClicked: () => void;
+}
+
+function CartJSX({ handleSetPayClicked }: CartJSXProps) {
     return (
         <CartLayout>
             <section>Cart</section>
-            <CartComponent />
+            <Cart onPayClickedChange={handleSetPayClicked} />
         </CartLayout>
     );
 }
 
-export default Auth(Cart)
+function CartPage() {
+    const [payClicked, setPayClicked] = useState<boolean>(false);
+    const { token } = useToken();
+
+    const handleSetPayClicked = () => {
+        console.log(payClicked);
+        setPayClicked(true);
+    };
+
+    if (!token && payClicked) {
+        const AuthenticatedCartJSX = withAuth(CartJSX);
+        return (
+            <AuthenticatedCartJSX handleSetPayClicked={handleSetPayClicked} />
+        );
+    }
+
+    return <CartJSX handleSetPayClicked={handleSetPayClicked} />;
+}
+
+export default CartPage;

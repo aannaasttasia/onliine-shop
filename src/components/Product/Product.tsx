@@ -1,6 +1,6 @@
 import { Component, useEffect, useRef, useState } from "react";
 import "./css/Product.scss";
-import { useCart } from "../CartComponent/cartState";
+import { useCart } from "../Cart/useCart";
 import ProductInfo from "../ProductInfo/ProductInfo";
 
 export interface ProductType {
@@ -8,9 +8,6 @@ export interface ProductType {
     title: string;
     description: string;
     price: string;
-    discountPercentage: number;
-    rating: number;
-    stock: number;
     category: string;
     thumbnail: string;
     quantity: number;
@@ -40,6 +37,7 @@ const Product = ({ product }: { product: ProductType }) => {
     };
     const handleAddToCart = () => {
         addToCart(product);
+        console.log(product);
     };
 
     return (

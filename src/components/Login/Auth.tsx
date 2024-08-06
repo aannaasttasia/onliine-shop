@@ -2,6 +2,7 @@ import { useState } from "react";
 import Login from "./Login";
 import useToken from "./UseToken";
 import Register from "./Register";
+import Header from "../Header/Header";
 
 const withAuth = (WrappedComponent: any) => {
     return (props: any) => {

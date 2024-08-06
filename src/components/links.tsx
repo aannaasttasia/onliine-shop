@@ -1,12 +1,12 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import "@/app/globals.css";
-import { countAtom, asyncDataAtom, useCart } from "./CartComponent/cartState";
+import { countAtom, useCart, userIdAtom } from "./Cart/useCart";
+import { useAtomValue } from "jotai";
 
 export function Links() {
     const pathname = usePathname();
     const { cartCount } = useCart();
-
     return (
         <nav className="nav">
             <ul className="nav-ul">

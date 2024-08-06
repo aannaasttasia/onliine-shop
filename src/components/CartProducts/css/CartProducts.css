@@ -34,6 +34,11 @@ figure {
 
 .product-btn {
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
 .buy-button {
@@ -41,6 +46,15 @@ figure {
   left: 0;
   padding: 10px 20px;
   width: 100%;
+  background-color: #000000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.product__buy-button {
+  padding: 5px 2px;
+  width: 20%;
   background-color: #000000;
   color: #fff;
   border: none;

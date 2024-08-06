@@ -4,9 +4,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { ProductType } from "../Product/Product";
 import { ProductsList } from "../ProductsList/ProductsList";
-import { countAtom } from "../CartComponent/cartState";
-import { useAtom } from "jotai";
 import { CategoryType } from "@/pages/categories";
+import { url } from "@/api/url";
 
 export function CategoriesList({
     categories,
@@ -19,16 +18,15 @@ export function CategoriesList({
     const [activeCategoryIndex, setActiveCategoryIndex] = useState<
         number | null
     >(0);
-    const [count, setCount] = useAtom<number>(countAtom);
 
-    const handleCategoryClick = async (category: string, index: number) => {
+    const handleCategoryClick = async (categoryId: number, index: number) => {
         try {
             const response = await axios.get(
-                `https://dummyjson.com/products/category/${category}`
+                `${url}/products/${categoryId-1}`
             );
-            setProducts(response.data.products);
+            setProducts(response.data);
             setActiveCategoryIndex(index);
-            console.log(index);
+            console.log(response.data);
         } catch (error) {
             console.error("Error fetching products by category:", error);
         }
@@ -44,7 +42,7 @@ export function CategoriesList({
                             className={
                                 index === activeCategoryIndex ? "active" : ""
                             }
-                            onClick={() => handleCategoryClick(category.slug, index)}
+                            onClick={() => handleCategoryClick(category.id, index)}
                         >
                             {category.name}
                         </div>

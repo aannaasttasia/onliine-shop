@@ -4,6 +4,7 @@ import { url } from "@/api/url";
 import { UserProps } from "@/components/Login/Login";
 import { NewUserType } from "@/components/Login/Register";
 
+
 export interface Products {
     products: ProductType[];
     count: number;
@@ -13,23 +14,13 @@ export interface MessageType {
     description: string;
 }
 
-export async function getProductsFromCart(): Promise<Products> {
-    const response = localStorage.getItem("cartProducts");
-    let products: ProductType[] = [];
-    let count = 0;
-    if (response) {
-        try {
-            products = JSON.parse(response);
-            console.log(products);
-            count = products.length;
-        } catch (error) {
-            console.log("Error loading cart items count");
-        }
-    }
-    return {
-        products: products,
-        count: count,
-    };
+export interface ProductsCart{
+    id: number;
+    quantity: number
+}
+export interface PaymentParamsType{
+    userId: number | null;
+    products: ProductsCart[]
 }
 
 export async function loginUser(
@@ -48,9 +39,11 @@ export async function loginUser(
     }
 }
 
+
 export async function newUser(credentials: NewUserType) {
     return await axios.post(`${url}/user/new`, credentials);
 }
+
 
 export async function newMessage(params: MessageType, token: string) {
     console.log(`Bearer ${JSON.parse(token)}`)
@@ -62,4 +55,27 @@ export async function newMessage(params: MessageType, token: string) {
             "Authorization": `Bearer ${JSON.parse(token)}`,
         },
     });
+}
+
+export async function payForProducts(params: PaymentParamsType) {
+    console.log(params.products)
+    return await axios.post(`${url}/payment/${params.userId}`,{
+        products: params.products
+    })
+    
+}
+
+export async function getUser(userId: number){
+    const response = await axios.get(`${url}/user/${userId}`)
+    return response.data
+}
+
+export async function getOrders(userId: number){
+    const response = await axios.get(`${url}/order/${userId}`)
+    return response.data
+}
+
+export async function getProduct(id: number){
+    const response = await axios.get(`${url}/product/${id}`)
+    return response.data
 }

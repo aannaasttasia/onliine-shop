@@ -1,20 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
+
 .header{
     display: flex;
     background: #c7c7c7;
     padding: 0;
-    position: sticky;
-    top: 0;
-    left: 0;
-    width: 100%;
     z-index: 100;
+    width: 100%;
 }
 
 .header__logo{
     padding: 10px 20px;
     font-family: 'Comfortaa';
     font-weight: 700;
-    // color: #1E2A32;
     align-content: center;
 }
 
@@ -22,10 +19,64 @@
     padding: 10px 20px;
     font-family: 'Comfortaa';
     font-weight: 700;
-    margin-left: auto;
     align-content: center;
 }
 
 .header__shopping{
     color:  rgb(37, 85, 190);
+}
+
+.header__accountIcon{
+    padding: 10px 20px;
+    font-family: 'Comfortaa';
+    font-weight: 700;
+    align-content: center;
+    cursor: pointer;
+}
+
+.header__wrapper{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 300; 
+}
+
+.header__accountInfo{
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 500;
+    height: 100%;
+    width: 50%;
+    background-color: rgb(252, 247, 238);
+    overflow: scroll;
+}
+
+.header__container{
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 101;
+}
+
+.header_account{
+    margin-left: auto;
+    display: flex;
+}
+
+.header__logIn{
+    padding: 5px 12px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    align-self: center;
+    background-color: #a5a5a5;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease;
 }

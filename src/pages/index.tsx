@@ -4,8 +4,6 @@ import { ProductsList } from "@/components/ProductsList/ProductsList";
 import RootLayout from "./layout";
 import { getData } from "@/api/getData";
 import { ProductType } from "@/components/Product/Product";
-import { getProductsFromCart } from "@/api/serverRequests";
-import { countAtom } from "@/components/CartComponent/cartState";
 import Loader from "@/components/Loader/Loader";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import NotFound from "@/components/NotFound/NotFound";
@@ -18,10 +16,8 @@ export const getServerSideProps = async () => {
     return { props: { products: products || [] } };
 };
 
-
 function Home({ products }: { products: ProductType[] }) {
     const [storedProducts, setStoredProducts] = useAtom(productsAtom);
-    const [, setCartCount] = useAtom(countAtom);
     const [loadedHomePage, setLoadedHomePage] = useState<boolean>(false);
     const [filteredProducts, setFilteredProducts] =
         useState<ProductType[]>(products);
@@ -36,19 +32,7 @@ function Home({ products }: { products: ProductType[] }) {
             setStoredProducts([]);
         }
 
-        const fetchCart = async () => {
-            try {
-                const res = await getProductsFromCart();
-                const count = res.count;
-                setCartCount(count);
-                console.log("count", count);
-            } catch (error) {
-                console.error("Failed to fetch cart and count:", error);
-            }
-        };
-        fetchCart();
-
-    }, [setCartCount, products, setStoredProducts]);
+    }, [products, setStoredProducts]);
 
     const handleSearch = (filteredProducts: ProductType[]) => {
         setFilteredProducts(filteredProducts);
@@ -77,4 +61,4 @@ function Home({ products }: { products: ProductType[] }) {
     );
 }
 
-export default Auth(Home)
+export default Home
