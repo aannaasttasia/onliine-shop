@@ -1,7 +1,6 @@
 import { newUser } from "@/api/serverRequests";
-import { url } from "@/api/url";
-import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import "./css/Login.scss";
 
 export interface NewUserType {
     name: string;
@@ -12,18 +11,23 @@ export interface NewUserType {
     password: string;
 }
 
-interface RegisterProps{
-    setAccount: (b: boolean)=>void,
-    setIsAccount: () => void
+interface RegisterProps {
+    setAccount: (b: boolean) => void;
+    setIsAccount: () => void;
 }
 
-export default function Register({setAccount, setIsAccount}: RegisterProps) {
+export default function Register({ setAccount, setIsAccount }: RegisterProps) {
     const [name, setName] = useState<string>("");
     const [surname, setSurname] = useState<string>("");
     const [address, setAddress] = useState<string>("");
     const [phoneNumber, setPhoneNumber] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPass] = useState<string>("");
+    const [isButtonDisabled, setButtonDisabled] = useState<boolean>(true);
+
+    useEffect(() => {
+        setButtonDisabled(!(email && password && name && surname && address && phoneNumber));
+    }, [email, password, name, surname, address, phoneNumber]);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -33,63 +37,79 @@ export default function Register({setAccount, setIsAccount}: RegisterProps) {
             address,
             phoneNumber,
             email,
-            password
-        })
-        setAccount(true)
+            password,
+        });
+        setAccount(true);
     };
 
     return (
         <div className="register-wrapper">
             <h1>Please fill in the form</h1>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    <p>Name</p>
+            <form onSubmit={handleSubmit} className="register-form">
+                <div className="register-form-group">
                     <input
+                        className="register-form-input"
                         type="text"
+                        placeholder=" "
                         onChange={(e) => setName(e.target.value)}
                     />
-                </label>
-                <label>
-                    <p>Surname</p>
+                    <label className="label">Name</label>
+                </div>
+                <div className="register-form-group">
                     <input
+                        className="register-form-input"
                         type="text"
+                        placeholder=" "
                         onChange={(e) => setSurname(e.target.value)}
                     />
-                </label>
-                <label>
-                    <p>Address</p>
+                    <label className="label">Surname</label>
+                </div>
+                <div className="register-form-group">
                     <input
+                        className="register-form-input"
                         type="text"
+                        placeholder=" "
                         onChange={(e) => setAddress(e.target.value)}
                     />
-                </label>
-                <label>
-                    <p>Phone number</p>
+                    <label className="label">Address</label>
+                </div>
+                <div className="register-form-group">
                     <input
+                        className="register-form-input"
                         type="text"
+                        placeholder=" "
                         onChange={(e) => setPhoneNumber(e.target.value)}
                     />
-                </label>
-                <label>
-                    <p>Email</p>
+                    <label className="label">Phone number</label>
+                </div>
+                <div className="register-form-group">
                     <input
+                        className="register-form-input"
                         type="text"
+                        placeholder=" "
                         onChange={(e) => setEmail(e.target.value)}
                     />
-                </label>
-                <label>
-                    <p>Password</p>
+                    <label className="label">Email</label>
+                </div>
+                <div className="register-form-group">
                     <input
+                        className="register-form-input"
                         type="password"
+                        placeholder=" "
                         onChange={(e) => setPass(e.target.value)}
                     />
-                </label>
-                <div>
-                    <button type="submit">Submit</button>
+                    <label className="label">Password</label>
                 </div>
             </form>
-            <p>I have an account</p>
-            <button onClick={setIsAccount}>Sign in</button>
+            <div>
+                <button type="submit" className="register-submit" disabled={isButtonDisabled}>
+                    Submit
+                </button>
+            </div>
+            <div className="register-login">
+                <p>I have an account</p>
+                <button onClick={setIsAccount} className="login-btn">Sign in</button>
+            </div>
         </div>
     );
 }

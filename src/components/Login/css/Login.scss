@@ -1,0 +1,131 @@
+.login-wrapper{
+    min-height: 85vh;
+}
+
+.register-wrapper{
+    min-height: 85vh;
+}
+
+.login__form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 60vh;
+}
+
+.register-form{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    min-height: 50vh;
+    justify-items: center;
+}
+
+.register-form-group{
+    display: flex;
+    margin: 1% 5%;
+    position: relative;
+    width: 20%;
+    justify-content: center;
+}
+
+.login-form-group{
+    margin: 5%;
+    position: relative;
+    width: 20%;
+    display: flex;
+    justify-content: center;
+}
+
+
+.login-form-group label, .register-form-group label{
+    color: #bdbdbd;
+    font-size: 16px;
+    font-weight: 300;
+    top: 12px;
+    left: 0px;
+    position: absolute;
+    transition: .3s ease all;
+    padding: 0 5px;
+}
+
+::placeholder {
+    color: #bdbdbd;
+    font-weight: 300;
+    margin: 0 5px 5px 5px;
+}
+  
+.login-form-input, .register-form-input{
+    background: 0 0;
+    color: #212121;
+    height: auto;
+    font-size: 16px;
+    padding: 12px 5px;
+    display: block;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #ebebeb;
+    font-family: "Open Sans", sans-serif;
+    width: 100%;
+}
+
+.login-form-input:not(:placeholder-shown)~label, .register-form-input:not(:placeholder-shown)~label{
+    top: -12px;
+    font-size: 16px;
+    color: #bdbdbd;
+}
+
+input:focus {
+    outline: none;
+}
+
+.login-submit, .register-submit{
+    padding: 5px 12px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    align-self: center;
+    background-color: #676767;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease;
+}
+
+.register-btn, .login-btn{
+    padding: 5px 12px;
+    border: none;
+    cursor: pointer;
+    align-self: center;
+    background-color: #c5c5c57d;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease;
+    color: #4e4e4e;
+}
+
+button:disabled,
+button[disabled]{
+    background-color: #dbdbdb7d;
+
+}
+
+.login-register, .register-login{
+    font-family: "Open Sans", sans-serif;
+    color: #a0a0a0;
+}
+
+.login-register{
+    margin: 5%;
+}
+
+.register-login{
+    margin: 15%;
+}
+
+@media (max-width: 950px){
+    .login-form-group{
+        width: 50%;
+    }
+    .register-form-group{
+        width: 50%;
+    }
+    
+}

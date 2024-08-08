@@ -14,13 +14,22 @@ body{
   background-color: rgb(255, 255, 255);
   color: black;
   transition: all 1s ease-in-out;
-
 }
 
 .dark-mode {
   background-color: #2b2a2aca;
   color: white;
   transition: all 1s ease-in-out;
+}
+
+.dark-mode .nav__cart-count{
+  color:#FFFFFF
+}
+
+.dark-mode .nav{
+  background-color: #2b2a2aca;
+  transition: all 1s ease-in-out;
+
 }
 
 main{
@@ -35,6 +44,8 @@ main{
   z-index: 100;
   background-color: rgb(255, 255, 255);
   position: sticky;
+  transition: all 1s ease-in-out;
+
 }
 
 .nav-li{
@@ -49,14 +60,29 @@ a{
   text-align: center;
 }
 
-
 .nav-ul{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   font-size: 16px;
   text-decoration: none;
-  padding: 15px;
+  padding: 0;
   margin: 0;
+  align-items: center;
+}
+
+.nav__cart{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav__cart-count{
+  color: #000000cb;
+  margin: 1%;
+  font-size: 20px;
+  /* position: absolute; */
 }
 
 .active{
@@ -82,15 +108,17 @@ li{
   column-gap: 5px;
   row-gap: 2px;
   padding: 10px 50px;
+  min-height: 52vh;
 }
 
 .cart{
   min-height: 75vh;
 }
 
-/* .cart__container{
-} */
+.cart__container{
+  min-height: 69vh;
 
+}
 .total-price{
   color: rgb(9, 9, 9);
   padding: 15px;
@@ -129,7 +157,13 @@ li{
 }
 
 .pay-btn:disabled {
-  pointer-events: none;
+  border: 2px solid #6a6a6a;
+  background-color: #6a6a6a;
+  transition: none;
+}
+
+.pay-btn:hover .pay-btn:disabled{
+  transform: none
 }
 
 .pay-btn:hover {
@@ -140,4 +174,17 @@ li{
 .pay-btn:active {
   box-shadow: none;
   transform: translateY(0);
+}
+
+.success, .fail{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+  font-style: italic;
+}
+
+.fa-circle-check{
+  color: rgb(62, 255, 91);
 }

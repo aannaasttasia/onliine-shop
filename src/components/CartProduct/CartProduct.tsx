@@ -1,6 +1,6 @@
 import { Component, useState } from "react";
 import "@/app/globals.css";
-import "./css/CartProducts.scss";
+import "./css/CartProduct.scss";
 import { ProductType } from "../Product/Product";
 import { useCart } from "../Cart/useCart";
 

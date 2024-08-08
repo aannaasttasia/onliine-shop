@@ -17,6 +17,7 @@ function Header({ handleLogIn }: HeaderProps) {
     const [isAccountActive, setIsAccountActive] = useState<boolean>(false);
     const [user, setUser] = useState<UserType>();
     const [userID, setUserID] = useAtom<number | null>(userIdAtom);
+    const [loading, setLoading] = useState<boolean>(false); 
 
     const handleOpenAccountInfo = async () => {
         if (userID) {
@@ -44,7 +45,7 @@ function Header({ handleLogIn }: HeaderProps) {
                     <Theme />
                 </div>
                 <div className="header_account">
-                    {userID ? (
+                     {userID ? (
                         <div
                             className="header__accountIcon"
                             onClick={handleOpenAccountInfo}

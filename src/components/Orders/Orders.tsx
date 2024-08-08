@@ -38,7 +38,7 @@ export default function Orders({ orders }: { orders: OrdersProps[] }) {
                 <div key={order.id}>
                     <p>{JSON.stringify(order.date)}</p>
                     {order.products.map((product) => (
-                        <div>
+                        <div key={product.id}>
                             <OrderProduct product={product} />
                             <p>{product.quantity}</p>
                         </div>

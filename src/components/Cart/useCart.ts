@@ -12,7 +12,6 @@ export function useCart() {
     const [cartCount, setCartCount] = useAtom(countAtom);
     const {token} = useToken()
     const [userId, setUserId] = useAtom(userIdAtom)
-    console.log('useCart')
 
     useEffect(() => {
         if (token) {
@@ -24,22 +23,19 @@ export function useCart() {
     }, [token]);
 
     useEffect(() => {
-        console.log(userId)
         if (userId === null) {
             setCart([]);
             setCartCount(0);
         } else {
             const cartStorageString = localStorage.getItem(`cartProducts_${userId}`);
-            console.log(cartStorageString)
             if (cartStorageString) {
                 const data = JSON.parse(cartStorageString);
                 setCart(data);
                 setCartCount(
                     data.reduce((total: number, product: ProductType) => total + product.quantity, 0)
                 );
-            }
+           }
         }
-        
     }, [userId]);
 
 

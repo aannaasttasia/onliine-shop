@@ -17,25 +17,25 @@ export default function CategoriesLayout({
         setLogIn(true);
     };
 
-    const Content = logIn ? withAuth(() => (
-        <>
-            <Header handleLogIn={handleLogIn} />
-            <Links />
-            {children}
-            <Footer />
-        </>
-    )) : () => (
-        <>
-            <Header handleLogIn={handleLogIn} />
-            <Links />
-            {children}
-            <Footer />
-        </>
-    );
+    const AuthenticatedChildren = logIn
+        ? withAuth(() => (
+              <>
+                  <Links />
+                  <>{children}</>
+              </>
+          ))
+        : () => (
+              <>
+                  <Links />
+                  <>{children}</>
+              </>
+          );
 
     return (
         <Provider>
-            <Content />
+            <Header handleLogIn={handleLogIn} />
+            <AuthenticatedChildren />
+            <Footer />
         </Provider>
     );
 }
