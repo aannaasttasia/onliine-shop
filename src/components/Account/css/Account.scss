@@ -48,6 +48,11 @@
     transition: background-color 0.3s ease;
 }
 
+.account{
+    position: relative;
+    min-height: 80vh;
+}
+
 @media (max-width: 750px) {
     .account__container {
         grid-template-columns: 1fr;

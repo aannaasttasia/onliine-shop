@@ -2,8 +2,10 @@ import { useAtom, useAtomValue } from "jotai";
 import { userIdAtom } from "../Cart/useCart";
 import Orders, { OrdersProps } from "../Orders/Orders";
 import { useEffect, useState } from "react";
-import { getOrders } from "@/api/serverRequests";
+import { getOrders, getUser } from "@/api/serverRequests";
 import "./css/Account.scss";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
 export interface UserType {
     id: number;
@@ -15,27 +17,33 @@ export interface UserType {
     balance: number;
 }
 
-interface AccountProps {
-    user: UserType;
-    logout: () => void;
-}
 
-export default function Account({ user, logout }: AccountProps) {
-    const [orders, setOrders] = useState<OrdersProps[]>([]);
-    const handleLogOut = () => {
-        sessionStorage.removeItem("token");
-        logout();
-    };
+export default function Account() {
+    const pathname = usePathname();
+    const router = useRouter();
+    const [user, setUser] = useState<UserType>();
+    const [userID, setUserID] = useAtom<number | null>(userIdAtom);
 
     useEffect(() => {
         const fetchOrders = async () => {
-            const response = await getOrders(user.id);
-            setOrders(response);
+            if (userID) {
+                const userInfo = await getUser(userID);
+                setUser(userInfo);
+            }
         };
         fetchOrders();
-    }, []);
+    }, [userID]);
 
-    return (
+
+    const handleLogOut = () => {
+        sessionStorage.removeItem("token");
+        setUserID(null);
+        setUser(undefined);
+        localStorage.removeItem("cartProducts_null");
+        router.push('/categories');
+    };
+
+    return ( user &&
         <div className="account">
             <h1 className="contact__info">Contact Information</h1>
             <div className="account__container">
@@ -94,12 +102,19 @@ export default function Account({ user, logout }: AccountProps) {
                     ></input>
                     <label className="label">Your phone number</label>
                 </div>
-                {/* <Orders orders={orders}/> */}
             </div>
-            <h1 className="profile_balance">Balance: ${user.balance.toFixed(2)}</h1>
-
-
-            <button onClick={handleLogOut} className="profile_logOut">Log out</button>
+            <Link
+                className={`link ${pathname === "/orders" ? "active" : ""}`}
+                href="/orders"
+            >
+                Orders history
+            </Link>
+            <h1 className="profile_balance">
+                Balance: ${user.balance.toFixed(2)}
+            </h1>
+            <button onClick={handleLogOut} className="profile_logOut">
+                Log out
+            </button>
         </div>
     );
 }

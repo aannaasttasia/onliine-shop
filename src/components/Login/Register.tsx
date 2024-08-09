@@ -23,11 +23,11 @@ export default function Register({ setAccount, setIsAccount }: RegisterProps) {
     const [phoneNumber, setPhoneNumber] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPass] = useState<string>("");
-    const [isButtonDisabled, setButtonDisabled] = useState<boolean>(true);
+    const [isButtonDisabled, setButtonDisabled] = useState<boolean>(false);
 
-    useEffect(() => {
-        setButtonDisabled(!(email && password && name && surname && address && phoneNumber));
-    }, [email, password, name, surname, address, phoneNumber]);
+    // useEffect(() => {
+    //     setButtonDisabled(!(email && password && name && surname && address && phoneNumber));
+    // }, [email, password, name, surname, address, phoneNumber]);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -39,6 +39,7 @@ export default function Register({ setAccount, setIsAccount }: RegisterProps) {
             email,
             password,
         });
+        console.log("done", email, password)
         setAccount(true);
     };
 
@@ -100,12 +101,12 @@ export default function Register({ setAccount, setIsAccount }: RegisterProps) {
                     />
                     <label className="label">Password</label>
                 </div>
-            </form>
-            <div>
-                <button type="submit" className="register-submit" disabled={isButtonDisabled}>
+                <div>
+                <button type="submit" className="register-submit" disabled={isButtonDisabled} onClick={()=>handleSubmit}>
                     Submit
                 </button>
             </div>
+            </form>
             <div className="register-login">
                 <p>I have an account</p>
                 <button onClick={setIsAccount} className="login-btn">Sign in</button>

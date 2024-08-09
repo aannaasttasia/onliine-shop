@@ -62,10 +62,10 @@ export async function payForProducts(params: PaymentParamsType) {
     const response = await axios.post(`${url}/payment/${params.userId}`, {
         products: params.products,
     });
-    const result: {success: boolean} = response.data
+    const result: { success: boolean } = response.data;
     return {
-        success: result.success
-    }
+        success: result.success,
+    };
 }
 
 export async function getUser(userId: number) {
@@ -73,9 +73,13 @@ export async function getUser(userId: number) {
     return response.data;
 }
 
-export async function getOrders(userId: number) {
-    const response = await axios.get(`${url}/order/${userId}`);
-    return response.data;
+export async function getOrders(userId: number | null) {
+    if (userId) {
+        const response = await axios.get(`${url}/order/${userId}`);
+        return response.data;
+    } else {
+        console.error("User is not found")
+    }
 }
 
 export async function getProduct(id: number) {

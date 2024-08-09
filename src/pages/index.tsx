@@ -7,7 +7,6 @@ import { ProductType } from "@/components/Product/Product";
 import Loader from "@/components/Loader/Loader";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import NotFound from "@/components/NotFound/NotFound";
-import Auth from "@/components/Login/Auth";
 
 const productsAtom = atom<ProductType[]>([]);
 
