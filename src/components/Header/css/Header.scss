@@ -74,6 +74,13 @@
     transition: background-color 0.3s ease;
 }
 
-@media (max-width: 1250px) {
-    
+@media (max-width: 950px) {
+    .header__logo{
+        display: none;
+    }
+}
+@media (max-width: 350px) {
+    .header__logo{
+        display: none;
+    }
 }

@@ -9,6 +9,7 @@
 }
 .product-name {
     font-size: 12px;
+    min-height: 4vh;
 }
 
 .orders__section{
@@ -16,11 +17,14 @@
 }
 
 .order__img-wrapper {
-    max-width: 70%;
+    max-width: 250px;
     margin: auto;
 }
+
 .order__img-wrapper img{
     width: 100%;
+    height: 190px;
+
 }
 .product-price {
     margin: 0;
@@ -39,7 +43,7 @@
 .orders__order{
     display:flex;
     flex-direction: column;
-    margin: 2%;
+    margin: 5%;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     padding: 10px 0;
 }
@@ -55,4 +59,19 @@
 .orders__total-price{
     font-size: 15px;
     font-weight: bold;
+}
+
+
+@media screen and (max-width: 950px) {
+    .orders__products{
+        grid-template-columns: 1fr 1fr 1fr;
+        margin:  2% 5%;
+    }
+}
+
+@media screen and (max-width: 430px) {
+    .orders__products{
+        grid-template-columns: 1fr 1fr;
+        margin:  0;
+    }
 }

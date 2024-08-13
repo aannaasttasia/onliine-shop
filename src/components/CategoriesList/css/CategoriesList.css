@@ -17,15 +17,80 @@ li {
           align-items: center;
 }
 
-.categories-list {
+.categories-open-btn {
+  display: none;
+  z-index: 1003;
+}
+
+.categories-section {
   margin: 15px 0;
   border-bottom: 1px solid #ebebeb;
 }
 
-@media screen and (max-width: 768px) {
+.categories-overlay {
+  display: none;
+}
+
+@media screen and (max-width: 800px) {
   .categories-ul {
     -ms-grid-columns: (minmax(150px, 1fr))[auto-fit];
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .categories-ul {
+    position: fixed;
+    z-index: 102;
+    padding: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    font-size: 16px;
+  }
+  .categories-section {
+    position: relative;
+  }
+  .categories-open-btn {
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 11.6%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background: url(https://static.thenounproject.com/png/560249-200.png) no-repeat center center/30px 30px;
+  }
+  .categories-full-content {
+    display: none;
+  }
+  .categories-overlay {
+    position: fixed;
+    top: 11.8%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    z-index: 1000;
+  }
+  .categories-content {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
   }
 }
 /*# sourceMappingURL=CategoriesList.css.map */

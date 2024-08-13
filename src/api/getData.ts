@@ -9,6 +9,10 @@ export async function getData():Promise<ProductType[]> {
       throw new Error("REACT_APP_DATA_API_URL is not defined");
     }  
     const res = await axios.get(`${url}/products`);
-    console.log(res);
-    return res.data;
-  }
+
+    const products = res.data.map((product: ProductType) => ({
+      ...product,
+      quantity: 0
+  }));
+    return products;
+}

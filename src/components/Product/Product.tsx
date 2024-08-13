@@ -8,7 +8,7 @@ export interface ProductType {
     title: string;
     description: string;
     price: string;
-    category: string;
+    categoryId: string;
     thumbnail: string;
     quantity: number;
 }

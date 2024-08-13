@@ -24,7 +24,7 @@ export default function Orders() {
             if (userId !== null) {
                 try {
                     const response = await getOrders(userId);
-                    setOrders(response);
+                    setOrders(response.reverse());
                     console.log(userId);
                 } catch (error) {
                     console.error("Error fetching orders:", error);
@@ -41,16 +41,23 @@ export default function Orders() {
                 <div className="orders">
                     {orders.map((order) => (
                         <div key={order.id} className="orders__order-section">
-                            <p>{JSON.stringify(order.date)}</p>
+                            <p>{new Date(order.date).toLocaleDateString()}</p>
                             <div className="orders__products">
                                 {order.products.map((product) => (
-                                    <div key={product.id} className="orders__order">
+                                    <div
+                                        key={product.id}
+                                        className="orders__order"
+                                    >
                                         <OrderProduct product={product} />
-                                        <p className="orders__product-quantity">x{product.quantity}</p>
+                                        <p className="orders__product-quantity">
+                                            x{product.quantity}
+                                        </p>
                                     </div>
                                 ))}
                             </div>
-                            <p className="orders__total-price">Total price: ${order.totalPrice}</p>
+                            <p className="orders__total-price">
+                                Total price: ${order.totalPrice}
+                            </p>
                         </div>
                     ))}
                 </div>

@@ -18,23 +18,28 @@ export function CategoriesList({
     const [activeCategoryIndex, setActiveCategoryIndex] = useState<
         number | null
     >(0);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const handleCategoryClick = async (categoryId: number, index: number) => {
         try {
             const response = await axios.get(
-                `${url}/products/${categoryId-1}`
+                `${url}/products/${categoryId - 1}`
             );
             setProducts(response.data);
             setActiveCategoryIndex(index);
+            setIsOpen(!isOpen);
             console.log(response.data);
         } catch (error) {
             console.error("Error fetching products by category:", error);
         }
     };
 
-    return (
-        <section className="categories-list">
-            <h1>Categories</h1>
+    const handleOpen = () => {
+        setIsOpen(!isOpen);
+    };
+
+    const Content = () => {
+        return (
             <ul className="categories-ul">
                 {categories.map((category: CategoryType, index: number) => (
                     <li key={category.name}>
@@ -42,13 +47,34 @@ export function CategoriesList({
                             className={
                                 index === activeCategoryIndex ? "active" : ""
                             }
-                            onClick={() => handleCategoryClick(category.id, index)}
+                            onClick={() =>
+                                handleCategoryClick(category.id, index)
+                            }
                         >
                             {category.name}
                         </div>
                     </li>
                 ))}
             </ul>
+        );
+    };
+
+    return (
+        <section className="categories-section">
+            <div className="categories-list">
+                <h1>Categories</h1>
+                <div className="categories-open-btn" onClick={handleOpen}></div>
+                {isOpen && (
+                    <div className="categories-overlay">
+                        <div className="categories-content">
+                            <Content />
+                        </div>
+                    </div>
+                )}
+                <div className="categories-full-content">
+                    <Content />
+                </div>
+            </div>
             <ProductsList products={products} />
         </section>
     );

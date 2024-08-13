@@ -11,7 +11,6 @@ interface JWTPayload{
 export function decodeToken(token: string): JWTPayload | null{
     try {
         const decoded = jwtDecode<JWTPayload>(token);
-        console.log('Decoded JWT:', decoded);
         return decoded;
     } catch (error) {
         console.error('Failed to decode JWT:', error);
@@ -29,7 +28,6 @@ export default function useToken() {
                 setTokenState(tokenString);
             }
         }
-        console.log('useToken')
     }, []);
   
     function setToken(userToken: string) {

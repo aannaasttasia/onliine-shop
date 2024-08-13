@@ -5,6 +5,7 @@ import "@/app/globals.css";
 import { Provider as JotaiProvider, Provider } from "jotai";
 import { useState } from "react";
 import withAuth from "@/components/Login/Auth";
+import { AuthenticatedContent, UnauthenticatedContent } from "../layout";
 
 export default function CartLayout({
     children,
@@ -17,24 +18,13 @@ export default function CartLayout({
         setLogIn(true);
     };
 
-    const AuthenticatedChildren = logIn
-    ? withAuth(() => (
-          <>
-              <Links />
-              <>{children}</>
-          </>
-      ))
-    : () => (
-          <>
-              <Links />
-              <>{children}</>
-          </>
-      );
+    const Content = logIn ? AuthenticatedContent : UnauthenticatedContent;
+
     return (
         <Provider>
             <Header handleLogIn={handleLogIn} />
-            <AuthenticatedChildren />
+            <Content>{children}</Content>
             <Footer />
         </Provider>
-    );
+    )
 }

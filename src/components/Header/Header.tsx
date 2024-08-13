@@ -10,6 +10,7 @@ import { userIdAtom } from "../Cart/useCart";
 import { useAtom, useAtomValue } from "jotai";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import useToken, { decodeToken } from "../Login/UseToken";
 
 interface HeaderProps {
     handleLogIn: () => void;
@@ -17,12 +18,29 @@ interface HeaderProps {
 
 function Header({ handleLogIn }: HeaderProps) {
     const [isAccountActive, setIsAccountActive] = useState<boolean>(false);
-    const [userID, setUserID] = useAtom<number | null>(userIdAtom);
+    const [userID, setUserID] = useState<number | null>(null);
     const pathname = usePathname();
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const { token } = useToken();
 
     const handleOpenAccountInfo = async () => {
         setIsAccountActive(!isAccountActive);
     };
+
+    useEffect(() => {
+        if (token) {
+            const decodedToken = decodeToken(token);
+            if (decodedToken) {
+                setUserID(decodedToken.userId);
+            }
+        } else {
+            setIsLoading(false);
+        }
+        setIsLoading(false);
+
+        console.log(isLoading);
+        console.log(userID);
+    }, [token, setIsLoading, setUserID, setIsAccountActive]);
 
     return (
         <div className="header__container">
@@ -32,7 +50,7 @@ function Header({ handleLogIn }: HeaderProps) {
                     <Theme />
                 </div>
                 <div className="header_account">
-                    {userID ? (
+                    { userID ? (
                         <div
                             className="header__accountIcon"
                             onClick={handleOpenAccountInfo}

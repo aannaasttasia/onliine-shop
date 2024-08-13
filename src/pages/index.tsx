@@ -11,53 +11,50 @@ import NotFound from "@/components/NotFound/NotFound";
 const productsAtom = atom<ProductType[]>([]);
 
 export const getServerSideProps = async () => {
-    const products = await getData();
-    return { props: { products: products || [] } };
+    const response = await getData();
+    const productsRandom = [...response]
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 12);
+    console.log("here", productsRandom)
+    return { props: { products: productsRandom || [] } };
 };
 
 function Home({ products }: { products: ProductType[] }) {
     const [storedProducts, setStoredProducts] = useAtom(productsAtom);
     const [loadedHomePage, setLoadedHomePage] = useState<boolean>(false);
     const [filteredProducts, setFilteredProducts] =
-        useState<ProductType[]>(products);
+        useState<ProductType[]>([]);
     const [isClient, setIsClient] = useState<boolean>(false);
 
     useEffect(() => {
-        setIsClient(true);
-        if (products && products.length > 0) {
+        setIsClient(true)
+        if (products.length > 0) {
             setStoredProducts(products);
+            setFilteredProducts(products)
             if (storedProducts) setLoadedHomePage(true);
         } else {
             setStoredProducts([]);
         }
+    }, [products]);
 
-    }, [products, setStoredProducts]);
-
-    const handleSearch = (filteredProducts: ProductType[]) => {
-        setFilteredProducts(filteredProducts);
-        console.log(filteredProducts);
+    const handleSearch = (filtered: ProductType[]) => {
+        setFilteredProducts(filtered)
     };
 
-    if (!isClient) {
-        return <Loader />;
-    }
-
     return (
-        <Provider>
-            <RootLayout>
-                <SearchBar products={products} onSearch={handleSearch} />
-                {filteredProducts.length !== 0 ? (
-                    loadedHomePage ? (
-                        <ProductsList products={filteredProducts} />
-                    ) : (
-                        <Loader />
-                    )
+        <RootLayout>
+            <SearchBar products={products} onSearch={handleSearch} />
+            {filteredProducts ? (
+                loadedHomePage ? (
+                    <ProductsList products={filteredProducts} />
                 ) : (
-                    <NotFound />
-                )}
-            </RootLayout>
-        </Provider>
+                    <Loader />
+                )
+            ) : (
+                <NotFound />
+            )}
+        </RootLayout>
     );
 }
 
-export default Home
+export default Home;

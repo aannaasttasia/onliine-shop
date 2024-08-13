@@ -6,6 +6,21 @@ import { Provider as JotaiProvider, Provider } from "jotai";
 import withAuth from "@/components/Login/Auth";
 import { useState } from "react";
 
+
+export const AuthenticatedContent = withAuth(({ children }: { children: React.ReactNode }) => (
+    <>
+        <Links />
+        {children}
+    </>
+));
+
+export const UnauthenticatedContent = ({ children }: { children: React.ReactNode }) => (
+    <>
+        <Links />
+        {children}
+    </>
+);
+
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -17,24 +32,12 @@ export default function RootLayout({
         setLogIn(true);
     };
 
-    const AuthenticatedChildren = logIn
-        ? withAuth(() => (
-              <>
-                  <Links />
-                  <>{children}</>
-              </>
-          ))
-        : () => (
-              <>
-                  <Links />
-                  <>{children}</>
-              </>
-          );
+    const Content = logIn ? AuthenticatedContent : UnauthenticatedContent;
 
     return (
         <Provider>
             <Header handleLogIn={handleLogIn} />
-            <AuthenticatedChildren />
+            <Content>{children}</Content>
             <Footer />
         </Provider>
     );
