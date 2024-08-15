@@ -18,29 +18,12 @@ interface HeaderProps {
 
 function Header({ handleLogIn }: HeaderProps) {
     const [isAccountActive, setIsAccountActive] = useState<boolean>(false);
-    const [userID, setUserID] = useState<number | null>(null);
+    const userID = useAtomValue<number | null>(userIdAtom);
     const pathname = usePathname();
-    const [isLoading, setIsLoading] = useState<boolean>(true);
-    const { token } = useToken();
 
     const handleOpenAccountInfo = async () => {
         setIsAccountActive(!isAccountActive);
     };
-
-    useEffect(() => {
-        if (token) {
-            const decodedToken = decodeToken(token);
-            if (decodedToken) {
-                setUserID(decodedToken.userId);
-            }
-        } else {
-            setIsLoading(false);
-        }
-        setIsLoading(false);
-
-        console.log(isLoading);
-        console.log(userID);
-    }, [token, setIsLoading, setUserID, setIsAccountActive]);
 
     return (
         <div className="header__container">

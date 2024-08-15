@@ -21,9 +21,23 @@ li {
 
 @media screen and (max-width: 950px) {
   .list-ul-products {
+    -ms-grid-columns: (minmax(170px, 0.3fr))[auto-fit];
+        grid-template-columns: repeat(auto-fit, minmax(170px, 0.3fr));
+    padding: 0px 0px;
+  }
+}
+
+@media screen and (max-width: 730px) {
+  .list-ul-products {
+    -ms-grid-columns: (minmax(170px, 0.5fr))[auto-fit];
+        grid-template-columns: repeat(auto-fit, minmax(170px, 0.5fr));
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .list-ul-products {
     -ms-grid-columns: (minmax(170px, 1fr))[auto-fit];
         grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-    padding: 0px 0px;
   }
 }
 /*# sourceMappingURL=ProductsList.css.map */

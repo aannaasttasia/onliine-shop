@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./css/Login.scss";
-import axios from "axios";
-import { url } from "@/api/url";
 import { loginUser } from "@/api/serverRequests";
+import Error from "./Error";
 
 export interface UserProps {
     email: string;
@@ -18,22 +17,29 @@ export default function Login({ setToken, setIsAccount }: TokenProps) {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [isButtonDisabled, setButtonDisabled] = useState<boolean>(true);
+    const [errorMessage, setErrorMessage] = useState<string>("");
+    const [showError, setShowError] = useState<boolean>(false);
 
     useEffect(() => {
         setButtonDisabled(!(email && password));
-        console.log(isButtonDisabled);
-    }, [email, password, setEmail, setPassword]);
+        setShowError(false)
+    }, [email, password]);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        if (!isButtonDisabled) {
-            e.preventDefault();
-            const token = await loginUser({
-                email,
-                password,
-            });
-            if (token) setToken(token.access_token);
-            console.log("yes")
-            localStorage.removeItem("cartProducts_null");
+        try {
+            if (!isButtonDisabled) {
+                e.preventDefault();
+                const token = await loginUser({
+                    email,
+                    password,
+                });
+                if (token) setToken(token.access_token);
+                console.log("yes");
+                localStorage.removeItem("cartProducts_null");
+            }
+        } catch (error) {
+            setErrorMessage("Invalid email or password. Please try again.");
+            setShowError(true);
         }
     };
 
@@ -59,6 +65,14 @@ export default function Login({ setToken, setIsAccount }: TokenProps) {
                     />
                     <label className="label">Password</label>
                 </div>
+                {showError && (
+                    <div className="error-section">
+                        <Error
+                            errorMessage={errorMessage}
+                            showMessage={showError}
+                        />
+                    </div>
+                )}
                 <div>
                     <button
                         type="submit"

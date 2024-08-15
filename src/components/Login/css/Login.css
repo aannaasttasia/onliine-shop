@@ -23,8 +23,8 @@
 .register-form {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 1fr;
-      grid-template-columns: 1fr 1fr;
+  -ms-grid-columns: 1fr;
+      grid-template-columns: 1fr;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -160,6 +160,11 @@ button[disabled] {
 
 .register-login {
   margin: 5%;
+}
+
+.error-popup {
+  color: red;
+  font-size: 10px;
 }
 
 @media (max-width: 950px) {

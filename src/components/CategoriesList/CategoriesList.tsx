@@ -20,6 +20,13 @@ export function CategoriesList({
     >(0);
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
+    useEffect(() => {
+        document.body.classList.toggle('no-scroll', isOpen);
+        return () => {
+            document.body.classList.remove('no-scroll');
+        };
+    }, [isOpen]);
+
     const handleCategoryClick = async (categoryId: number, index: number) => {
         try {
             const response = await axios.get(

@@ -15,7 +15,7 @@
 
 .register-form{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     align-items: center;
     min-height: 50vh;
     justify-items: center;
@@ -120,6 +120,10 @@ button[disabled]{
     margin: 5%;
 }
 
+.error-popup{
+    color: red;
+    font-size: 10px;
+}
 @media (max-width: 950px){
     .login-form-group{
         width: 50%;

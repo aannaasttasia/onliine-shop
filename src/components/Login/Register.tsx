@@ -1,6 +1,8 @@
 import { newUser } from "@/api/serverRequests";
 import { useEffect, useState } from "react";
 import "./css/Login.scss";
+import Error from "./Error";
+import axios from "axios";
 
 export interface NewUserType {
     name: string;
@@ -24,29 +26,51 @@ export default function Register({ setAccount, setIsAccount }: RegisterProps) {
     const [email, setEmail] = useState<string>("");
     const [password, setPass] = useState<string>("");
     const [isButtonDisabled, setButtonDisabled] = useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = useState<string>("");
+    const [showError, setShowError] = useState<boolean>(false);
 
-    // useEffect(() => {
-    //     setButtonDisabled(!(email && password && name && surname && address && phoneNumber));
-    // }, [email, password, name, surname, address, phoneNumber]);
+    useEffect(() => {
+        setButtonDisabled(
+            !(email && password && name && surname && address && phoneNumber)
+        );
+        setShowError(false);
+    }, [email, password, name, surname, address, phoneNumber]);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        await newUser({
-            name,
-            surname,
-            address,
-            phoneNumber,
-            email,
-            password,
-        });
-        console.log("done", email, password)
-        setAccount(true);
+    const handleSubmit = async () => {
+        try {
+            await newUser({
+                name,
+                surname,
+                address,
+                phoneNumber,
+                email,
+                password,
+            });
+            console.log("done", email, password);
+            setAccount(true);
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                if (error.response) {
+                    if (error.response.status === 409) {
+                        setErrorMessage(
+                            "An account with this email address already exists."
+                        );
+                    }
+                    if (error.response.status === 400) {
+                        setErrorMessage("Check the format of your data.");
+                    }
+                }
+            } else{
+                setErrorMessage("Credentials are incorrect. Please try again.");
+            }
+            setShowError(true);
+        }
     };
 
     return (
         <div className="register-wrapper">
             <h1>Please fill in the form</h1>
-            <form onSubmit={handleSubmit} className="register-form">
+            <form className="register-form">
                 <div className="register-form-group">
                     <input
                         className="register-form-input"
@@ -101,15 +125,29 @@ export default function Register({ setAccount, setIsAccount }: RegisterProps) {
                     />
                     <label className="label">Password</label>
                 </div>
-                <div>
-                <button type="submit" className="register-submit" disabled={isButtonDisabled} onClick={()=>handleSubmit}>
-                    Submit
-                </button>
-            </div>
+                {showError && (
+                    <div className="error-section">
+                        <Error
+                            errorMessage={errorMessage}
+                            showMessage={showError}
+                        />
+                    </div>
+                )}
+                <div></div>
             </form>
+            <button
+                type="submit"
+                className="register-submit"
+                disabled={isButtonDisabled}
+                onClick={handleSubmit}
+            >
+                Submit
+            </button>
             <div className="register-login">
                 <p>I have an account</p>
-                <button onClick={setIsAccount} className="login-btn">Sign in</button>
+                <button onClick={setIsAccount} className="login-btn">
+                    Sign in
+                </button>
             </div>
         </div>
     );

@@ -44,7 +44,7 @@ function Home({ products }: { products: ProductType[] }) {
     return (
         <RootLayout>
             <SearchBar products={products} onSearch={handleSearch} />
-            {filteredProducts ? (
+            {filteredProducts.length > 0 ? (
                 loadedHomePage ? (
                     <ProductsList products={filteredProducts} />
                 ) : (
