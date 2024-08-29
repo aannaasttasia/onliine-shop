@@ -38,10 +38,6 @@ li {
   }
 }
 
-.no-scroll {
-  overflow: hidden;
-}
-
 @media screen and (max-width: 500px) {
   .categories-ul {
     position: absolute;

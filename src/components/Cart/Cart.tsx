@@ -2,23 +2,24 @@ import { useAtom, useAtomValue } from "jotai";
 import * as React from "react";
 import { ProductType } from "../Product/Product";
 import CartProduct from "../CartProduct/CartProduct";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { countAtom, useCart, userIdAtom } from "./useCart";
 import Loader from "../Loader/Loader";
 import "@/app/globals.css";
 import getFromCart from "./getFromCart";
-import { ProductsCart, payForProducts } from "@/api/serverRequests";
+import {
+    ProductsCart,
+    payForProducts,
+    payForProductsInEth,
+} from "@/api/serverRequests";
 import useToken from "../Login/UseToken";
 import axios from "axios";
 import withAuth from "../Login/Auth";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-
-interface CartComponentProps {
-    onPayClickedChange: () => void;
-}
-interface SuccessProps {
-    success: boolean;
-}
+import Dropdown, { convertedPriceAtom, selectedOptionAtom } from "./Dropdown";
+import { parseEther } from "viem";
+import { sendTransaction, createClient, checkBalance } from "@/client";
+import { parse } from "path";
 
 const calculateTotalPrice = (products: ProductType[]): number => {
     let totalPrice = 0;
@@ -30,15 +31,22 @@ const calculateTotalPrice = (products: ProductType[]): number => {
     return totalPriceFixed;
 };
 
+//const ethAmount = parseEther("0.00000001");
+
 export default function Cart() {
     const [cartStorage, setCartStorage] = useState<ProductType[]>([]);
     const [productAmount, setProductAmount] = useAtom(countAtom);
     const userId = useAtomValue(userIdAtom);
-    const [success, setSuccess] = useState<boolean>(false);
+    const [success, setSuccess] = useState<string>("");
     const [products, setProducts] = useState<ProductsCart[]>([]);
     const [payClicked, setPayClicked] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [isButtonDisabled, setButtonDisabled] = useState<boolean>(true);
+
+    const selectedCurrency = useAtomValue(selectedOptionAtom);
+    const convertedPrice = useAtomValue(convertedPriceAtom);
+    const ethAmount = parseEther(convertedPrice.toString());
+
 
     const { token } = useToken();
 
@@ -63,18 +71,41 @@ export default function Cart() {
 
     const handlePay = async () => {
         setPayClicked(true);
+        let response;
+        const account = localStorage.getItem("defaultAccount");
+        const walletClient = createClient(account);
         try {
             if (userId && products.length > 0) {
-                const response = await payForProducts({
-                    userId: userId,
-                    products: products,
-                });
+                if (selectedCurrency === "dollars") {
+                    response = await payForProducts({
+                        userId: userId,
+                        products: products,
+                    });
+                    console.log(selectedCurrency);
+                } else {
+                    const transaction = await sendTransaction(
+                        ethAmount,
+                        account,
+                        walletClient
+                    );
+                    console.log(ethAmount)
+                    if (transaction) {
+                        response = await payForProductsInEth({
+                            userId: userId,
+                            products: products,
+                        });
+                    } else {
+                        response = { success: "false" };
+                    }
+                }
                 const successResult = response.success;
                 setSuccess(successResult);
-                localStorage.removeItem(`cartProducts_${userId}`);
-                setCartStorage([]);
-                setProductAmount(0);
-                setPayClicked(false);
+                if (successResult === "true") {
+                    localStorage.removeItem(`cartProducts_${userId}`);
+                    setCartStorage([]);
+                    setProductAmount(0);
+                    setPayClicked(false);
+                }
             } else {
                 console.error("Cart is empty");
             }
@@ -94,16 +125,18 @@ export default function Cart() {
                     <div className="cart">
                         <ul className="list-ul">
                             {cartStorage.map((cartItem) => (
-                                <li key={cartItem.id}>
-                                    <CartProduct product={cartItem} />
-                                    <div>Quantity: {cartItem.quantity}</div>
+                                <li key={cartItem.id} className="cart-product__item">
+                                    <CartProduct product={cartItem} quantity={cartItem.quantity}/>
                                 </li>
                             ))}
                         </ul>
                         <div className="cart__payment">
-                            <p className="total-price">
-                                Total price: ${calculateTotalPrice(cartStorage)}
-                            </p>
+                            <div className="total-price">
+                                <p>Total price:</p>
+                                <Dropdown
+                                    price={calculateTotalPrice(cartStorage)}
+                                />
+                            </div>
                             <button
                                 className="pay-btn"
                                 onClick={handlePay}
@@ -123,14 +156,17 @@ export default function Cart() {
                     )
                 )}
                 <div className="success">
-                    {success ? (
+                    {success === "true" ? (
                         <div>
                             <p>Payment was successful</p>
                             <i className="fa-regular fa-circle-check"></i>
                         </div>
-                    ) : (
-                        ""
-                    )}
+                    ) : success === "false" ? (
+                        <div>
+                            <p>Payment failed</p>
+                            <i className="fa-regular fa-circle-xmark"></i>
+                        </div>
+                    ) : null}
                 </div>
             </section>
         );

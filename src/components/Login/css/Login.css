@@ -102,7 +102,6 @@
   border: none;
   border-radius: 0;
   border-bottom: 1px solid #ebebeb;
-  font-family: "Open Sans", sans-serif;
   width: 100%;
 }
 
@@ -150,7 +149,6 @@ button[disabled] {
 }
 
 .login-register, .register-login {
-  font-family: "Open Sans", sans-serif;
   color: #a0a0a0;
 }
 

@@ -60,6 +60,12 @@ figure {
   cursor: pointer;
 }
 
+.product-quantity {
+  -ms-flex-line-pack: center;
+      align-content: center;
+  color: #4d4d4d95;
+}
+
 @media (max-width: 950px) {
   .product {
     padding: 10px 10px;

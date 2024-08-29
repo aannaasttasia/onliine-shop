@@ -52,7 +52,7 @@ export default function Account() {
                         id="name"
                         type="text"
                         name="name"
-                        placeholder="Name"
+                        placeholder=" "
                         defaultValue={user.name}
                         className="profile-form-input"
                     ></input>
@@ -63,7 +63,7 @@ export default function Account() {
                         id="surname"
                         type="text"
                         name="surname"
-                        placeholder="Surname"
+                        placeholder=" "
                         defaultValue={user.surname}
                         className="profile-form-input"
                     ></input>
@@ -74,7 +74,7 @@ export default function Account() {
                         id="address"
                         type="text"
                         name="address"
-                        placeholder="Address"
+                        placeholder=" "
                         defaultValue={user.address}
                         className="profile-form-input"
                     ></input>
@@ -85,7 +85,7 @@ export default function Account() {
                         id="email"
                         type="text"
                         name="email"
-                        placeholder="Email"
+                        placeholder=" "
                         defaultValue={user.email}
                         className="profile-form-input"
                     ></input>
@@ -96,7 +96,7 @@ export default function Account() {
                         id="phone_number"
                         type="text"
                         name="phone_number"
-                        placeholder="Phone number"
+                        placeholder=" "
                         defaultValue={`+38${user.phoneNumber}`}
                         className="profile-form-input"
                     ></input>
@@ -104,7 +104,8 @@ export default function Account() {
                 </div>
             </div>
             <Link
-                className={`link ${pathname === "/orders" ? "active" : ""}`}
+                // className={`link ${pathname === "/orders" ? "orders active" : "orders"}`}
+                className="orders"
                 href="/orders"
             >
                 Orders history
