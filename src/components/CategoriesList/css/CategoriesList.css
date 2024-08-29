@@ -38,6 +38,10 @@ li {
   }
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
 @media screen and (max-width: 500px) {
   .categories-ul {
     position: absolute;
@@ -63,8 +67,8 @@ li {
   .categories-open-btn {
     display: block;
     position: fixed;
+    top: 100px;
     left: 0;
-    top: 50px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
