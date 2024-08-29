@@ -105,7 +105,7 @@ export default function Account() {
             </div>
             <Link
                 // className={`link ${pathname === "/orders" ? "orders active" : "orders"}`}
-                className="orders"
+                className="profile-orders"
                 href="/orders"
             >
                 Orders history
