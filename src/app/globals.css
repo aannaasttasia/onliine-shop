@@ -37,7 +37,7 @@ main{
 .nav{
   border-bottom: 1px solid #ebebeb;
   padding: 0;
-  top: 6.8%;
+  top: 4.8%;
   width: 100%;
   z-index: 100;
   background-color: rgb(255, 255, 255);
@@ -118,7 +118,7 @@ li{
 }
 
 .cart__container{
-  min-height: 70vh;
+  min-height: 72vh;
 }
 
 .total-price{
@@ -233,7 +233,7 @@ button, input{
     font-size: 12px;
   }
   .nav{
-    top: 5.6%;
+    top: 4.6%;
   }
   .cart__container{
     min-height: 78vh;

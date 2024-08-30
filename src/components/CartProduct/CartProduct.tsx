@@ -1,4 +1,4 @@
-import { Component, useState } from "react";
+import { Component, useEffect, useState } from "react";
 import "@/app/globals.css";
 import "./css/CartProduct.scss";
 import { ProductType } from "../Product/Product";

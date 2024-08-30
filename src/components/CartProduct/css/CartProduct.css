@@ -58,12 +58,36 @@ figure {
   color: #4d4d4d;
   border: none;
   cursor: pointer;
+  border-radius: 10px;
+  font-size: 19px;
+}
+
+.product__buy-button:active {
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
 }
 
 .product-quantity {
   -ms-flex-line-pack: center;
       align-content: center;
   color: #4d4d4d95;
+}
+
+.product-quantity:active {
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+}
+
+.product-quantity {
+  -webkit-transition: -webkit-transform 0.2s ease-in-out;
+  transition: -webkit-transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
+}
+
+.product-quantity.scaled {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
 }
 
 @media (max-width: 950px) {
