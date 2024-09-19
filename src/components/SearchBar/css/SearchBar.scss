@@ -1,5 +1,6 @@
 .search-form{
     padding: 2%;
+    margin: 20px;
 }
 
 .search-form__input{
@@ -11,7 +12,7 @@
     font-size: 1rem;
     background: #ecececb1;
     color: #414141b1;
-    box-shadow: 10px 5px 5px rgb(178, 178, 178);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .search-form__input::placeholder {

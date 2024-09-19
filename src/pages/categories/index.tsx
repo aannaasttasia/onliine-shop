@@ -3,16 +3,15 @@ import { CategoriesList } from "@/components/CategoriesList/CategoriesList";
 import CategoriesLayout from "./layout";
 import axios from "axios";
 import { ProductType } from "@/components/Product/Product";
-import { atom, useAtom } from "jotai";
+import { atom } from "jotai";
 import { useEffect, useState } from "react";
-import { countAtom } from "@/components/CartComponent/cartState";
-import { getProductsFromCart } from "@/api/serverRequests";
 import Loader from "@/components/Loader/Loader";
+import Auth from "@/components/Login/Auth";
+import { url } from "@/api/url";
 
 export interface CategoryType {
-    slug: string;
+    id: number;
     name: string;
-    url: string;
 }
 
 const categoriesAtom = atom<CategoryType[]>([]);
@@ -21,19 +20,17 @@ export const getServerSideProps = async () => {
     try {
         const categories = await getCategories();
         const category = categories[0];
-        console.log(category);
         const response = await axios.get(
-            `https://dummyjson.com/products/category/${category.name}`
+            `${url}/products/${category.id-1}`
         );
-        const productsDef = response.data.products;
-        console.log(response.data.products);
+        const productsDef = response.data;
         return { props: { categories, productsDef } };
     } catch (error) {
         return []
     }
 };
 
-export default function Categories({
+function Categories({
     categories,
     productsDef,
 }: {
@@ -70,3 +67,5 @@ export default function Categories({
         </CategoriesLayout>
     );
 }
+
+export default Categories

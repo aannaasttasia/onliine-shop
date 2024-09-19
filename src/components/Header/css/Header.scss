@@ -1,20 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
+
 .header{
     display: flex;
     background: #c7c7c7;
     padding: 0;
-    position: sticky;
-    top: 0;
-    left: 0;
-    width: 100%;
     z-index: 100;
+    width: 100%;
 }
 
 .header__logo{
     padding: 10px 20px;
     font-family: 'Comfortaa';
     font-weight: 700;
-    // color: #1E2A32;
     align-content: center;
 }
 
@@ -22,10 +19,68 @@
     padding: 10px 20px;
     font-family: 'Comfortaa';
     font-weight: 700;
-    margin-left: auto;
     align-content: center;
 }
 
 .header__shopping{
     color:  rgb(37, 85, 190);
+}
+
+.header__accountIcon{
+    padding: 10px 20px;
+    font-family: 'Comfortaa';
+    font-weight: 700;
+    align-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.header__accountInfo{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 500;
+    height: 50%;
+    width: 40%;
+    background-color: rgb(238, 238, 238);
+    overflow: scroll;
+    padding: 10%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 2%;
+}
+
+
+.header__container{
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 101;
+}
+
+.header_account{
+    margin-left: auto;
+    display: flex;
+}
+
+.header__logIn{
+    padding: 5px 12px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    align-self: center;
+    background-color: #a5a5a5;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease;
+}
+
+@media (max-width: 950px) {
+    .header__logo{
+        display: none;
+    }
+}
+@media (max-width: 350px) {
+    .header__logo{
+        display: none;
+    }
 }

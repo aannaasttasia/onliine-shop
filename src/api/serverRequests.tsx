@@ -1,60 +1,88 @@
 import { ProductType } from "@/components/Product/Product";
 import axios from "axios";
-import { URL } from "@/api/url";
+import { url } from "@/api/url";
+import { UserProps } from "@/components/Login/Login";
+import { NewUserType } from "@/components/Login/Register";
 
 export interface Products {
     products: ProductType[];
     count: number;
 }
+export interface MessageType {
+    email: string;
+    description: string;
+}
 
-export async function getProductsFromCart(): Promise<Products> {
-    const response = localStorage.getItem('cartProducts')
-    let products: ProductType[]=[]
-    let count = 0;
-    if(response){
-        try {
-            products = JSON.parse(response)
-            console.log(products)
-            count = products.length
-        } catch (error) {
-            console.log("Error loading cart items count")
-        }
+export interface ProductsCart {
+    id: number;
+    quantity: number;
+}
+export interface PaymentParamsType {
+    userId: number | null;
+    products: ProductsCart[];
+}
+
+export async function loginUser(
+    credentials: UserProps
+): Promise<{ access_token: string }> {
+    try {
+        const response = await axios.post(`${url}/auth/login`, credentials, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Login error:", error);
+        throw new Error("Login failed. Please check your credentials.");
     }
+}
+
+export async function newUser(credentials: NewUserType) {
+    return await axios.post(`${url}/user/new`, credentials);
+}
+
+export async function newMessage(params: MessageType, token: string) {
+    console.log(`Bearer ${JSON.parse(token)}`);
+    return await axios.post(
+        `${url}/supportHistory/new`,
+        {
+            email: params.email,
+            description: params.description,
+        },
+        {
+            headers: {
+                Authorization: `Bearer ${JSON.parse(token)}`,
+            },
+        }
+    );
+}
+
+export async function payForProducts(params: PaymentParamsType) {
+    const response = await axios.post(`${url}/payment/${params.userId}`, {
+        products: params.products,
+    });
+    const result: { success: boolean } = response.data;
     return {
-        products: products,
-        count: count,
+        success: result.success,
     };
 }
 
-export async function addProduct(product: ProductType) {
-    await axios
-        .post(`${URL}/product/new`, {
-            title: product.title,
-            description: product.description,
-            price: product.price,
-            discountPercentage: product.discountPercentage,
-            rating: product.rating,
-            stock: product.stock,
-            // category: product.category,
-            thumbnail: product.thumbnail,
-        })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    console.log(`Added post with ID ${product.id}`);
-    console.log(product)
+export async function getUser(userId: number) {
+    const response = await axios.get(`${url}/user/${userId}`);
+    return response.data;
 }
 
-export async function deleteProduct(id: number) {
-    axios
-        .delete(`${URL}/product/${id}`)
-        .then((response) => {
-            console.log(`Deleted post with ID ${id}`);
-        })
-        .catch((error) => {
-            console.error(error);
-        });
+export async function getOrders(userId: number | null) {
+    if (userId) {
+        const response = await axios.get(`${url}/order/${userId}`);
+        return response.data;
+    } else {
+        console.error("User is not found")
+    }
+}
+
+export async function getProduct(id: number) {
+    const response = await axios.get(`${url}/product/${id}`);
+    return response.data;
 }

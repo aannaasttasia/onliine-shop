@@ -1,13 +1,20 @@
-import CartComponent from "@/components/CartComponent/CartComponent";
 import RootLayout from "../layout";
 import "@/app/globals.css";
 import CartLayout from "./layout";
+import { useState } from "react";
+import useToken from "@/components/Login/UseToken";
+import withAuth from "@/components/Login/Auth";
+import Cart from "@/components/Cart/Cart";
 
-export default function Cart() {
+
+function CartPage() {
     return (
         <CartLayout>
-            <section>Cart</section>
-            <CartComponent />
+            <h1>Cart</h1>
+            <Cart />
         </CartLayout>
     );
 }
+
+
+export default CartPage;

@@ -1,0 +1,71 @@
+.profile-form-input {
+  background: 0 0;
+  color: #212121;
+  height: auto;
+  font-size: 16px;
+  padding: 12px 0;
+  display: block;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid #ebebeb;
+}
+
+.profile-form-input:not(:placeholder-shown) ~ label {
+  top: -14px;
+  font-size: 13px;
+  color: #b4b4b4;
+}
+
+.profile-form-group label {
+  color: #bdbdbd;
+  font-size: 14px;
+  font-weight: 400;
+  top: 15px;
+  left: 0;
+  position: absolute;
+  -webkit-transition: .3s ease all;
+  transition: .3s ease all;
+}
+
+.profile-form-group {
+  position: relative;
+  margin: 5%;
+}
+
+.account__container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  justify-items: center;
+}
+
+.profile_logOut {
+  padding: 5px 12px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  background-color: #3d3d3dc8;
+  border-radius: 0.5rem;
+  -webkit-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+}
+
+.account {
+  position: relative;
+  min-height: 82vh;
+}
+
+@media (max-width: 750px) {
+  .account__container {
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+  }
+  .contact__info {
+    margin: 10px;
+  }
+}
+/*# sourceMappingURL=Account.css.map */

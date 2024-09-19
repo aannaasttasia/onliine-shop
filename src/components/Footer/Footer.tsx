@@ -38,7 +38,7 @@ export default function Footer() {
             {popupState && (
                 <div className="overlay" ref={overlayRef}>
                     <div className={ popupState ? "modal active" : "modal"}>
-                        <SupportPopup />
+                        <SupportPopup  setPopupState={setPopupState}/>
                     </div>
                 </div>
             )}

@@ -34,6 +34,11 @@ figure {
 
 .product-btn {
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
 .buy-button {
@@ -46,4 +51,32 @@ figure {
   border: none;
   cursor: pointer;
 }
-/*# sourceMappingURL=CartProducts.css.map */
+
+.product__buy-button {
+  padding: 5px 2px;
+  width: 20%;
+  color: #4d4d4d;
+  border: none;
+  cursor: pointer;
+}
+
+@media (max-width: 950px) {
+  .product {
+    padding: 10px 10px;
+  }
+  img {
+    height: 100px;
+  }
+  .product-price {
+    margin: 0;
+  }
+  .product-name {
+    margin: 0;
+    min-height: 40px;
+    font-size: 12px;
+  }
+  .buy-button {
+    position: static;
+  }
+}
+/*# sourceMappingURL=CartProduct.css.map */

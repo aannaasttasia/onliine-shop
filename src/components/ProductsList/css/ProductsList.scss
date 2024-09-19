@@ -16,8 +16,21 @@ li {
   margin: 25px;
 }
 
-@media screen and (max-width: 768px) {
-  .list-ul {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+@media screen and (max-width: 950px) {
+  .list-ul-products {
+    grid-template-columns: repeat(auto-fit, minmax(170px, 0.3fr));
+    padding: 0px 0px;
+  }
+}
+
+@media screen and (max-width: 730px) {
+  .list-ul-products {
+    grid-template-columns: repeat(auto-fit, minmax(170px, 0.5fr));
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .list-ul-products {
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   }
 }

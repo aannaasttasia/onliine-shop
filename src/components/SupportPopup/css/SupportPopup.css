@@ -38,4 +38,14 @@
 .support__send-btn:hover {
   background-color: #727272;
 }
+
+@media screen and (max-width: 570px) {
+  .support-popup {
+    padding: 10px;
+  }
+  .support__email, .support__description {
+    padding: 4%;
+    width: 200px;
+  }
+}
 /*# sourceMappingURL=SupportPopup.css.map */
