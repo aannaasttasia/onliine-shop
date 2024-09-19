@@ -5,7 +5,7 @@
 }
 
 img {
-  opacity: 0.7;
+  opacity: 0.9;
   padding: 0px;
   width: 100%;
   height: 150px;
@@ -21,11 +21,13 @@ img {
   border-radius: 6px;
   border: thick double #a1a7a916;
   position: relative;
+  cursor: pointer;
 }
 
 .product-name {
   min-height: 50px;
-  font-size: 15px;
+  font-size: 17px;
+  font-weight: 200;
 }
 
 figure {
@@ -45,5 +47,48 @@ figure {
   color: #fff;
   border: none;
   cursor: pointer;
+  z-index: 20;
+}
+
+.product__popup {
+  background-color: #d2d2d2;
+  padding: 50px;
+  width: 50%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.productInfo__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 1000;
+}
+
+.productInfo__modal {
+  background-color: #fff;
+  border-radius: 15px;
+  -webkit-box-shadow: 10px 5px 5px rgba(70, 70, 70, 0.365);
+          box-shadow: 10px 5px 5px rgba(70, 70, 70, 0.365);
+  z-index: 1010;
+  max-width: 60%;
+  max-height: 90%;
+  overflow: auto;
 }
 /*# sourceMappingURL=Product.css.map */

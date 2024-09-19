@@ -1,0 +1,33 @@
+.support-popup{
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    align-items: center;
+}
+
+.support__email, .support__description{
+    padding: 4%;
+    border: 1px solid #ccc;
+    width: 300px;
+}
+
+.support__description{
+    height: 150px;
+}
+
+.support__send-btn{
+    padding: 1% 5%;
+    background-color: #a5a5a5;
+    color: #fff;
+    border: none;
+    font-size: 1rem;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #727272;
+    }
+}
+

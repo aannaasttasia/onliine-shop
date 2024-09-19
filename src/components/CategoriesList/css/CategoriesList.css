@@ -12,6 +12,9 @@ li {
   -webkit-column-gap: 5px;
           column-gap: 5px;
   row-gap: 20px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .categories-list {

@@ -10,10 +10,7 @@ export default function Loader() {
             <div className="wave"></div>
             <div className="wave"></div>
             <div className="wave"></div>
-            <div className="wave"></div>
-            <div className="wave"></div>
-            <div className="wave"></div>
-            Loader
+            Loading...
         </div>
     );
 }

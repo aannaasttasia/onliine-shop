@@ -9,6 +9,7 @@ li {
   grid-template-columns: repeat(6, 1fr);
   column-gap: 5px;
   row-gap: 20px;
+  align-items: center;
 }
 
 .categories-list {

@@ -1,0 +1,21 @@
+.search-form{
+    padding: 2%;
+}
+
+.search-form__input{
+    padding: .9rem 1.6rem;
+    border: 1px solid #ffffffb1;
+    height: 20px;
+    border-radius: .7rem;
+    outline: none;
+    font-size: 1rem;
+    background: #ecececb1;
+    color: #414141b1;
+    box-shadow: 10px 5px 5px rgb(178, 178, 178);
+}
+
+.search-form__input::placeholder {
+    opacity: 0.5;
+    color: rgb(105, 105, 105);
+  }
+  
