@@ -59,13 +59,35 @@ export async function newMessage(params: MessageType, token: string) {
 }
 
 export async function payForProducts(params: PaymentParamsType) {
-    const response = await axios.post(`${url}/payment/${params.userId}`, {
-        products: params.products,
-    });
-    const result: { success: boolean } = response.data;
-    return {
-        success: result.success,
-    };
+    try {
+        const response = await axios.post(`${url}/payment/${params.userId}`, {
+            products: params.products,
+        });
+        const result: { success: boolean } = response.data;
+        return {
+            success: "true",
+        };
+    } catch (error) {
+        return {
+            success: "false",
+        };
+    }
+}
+
+export async function payForProductsInEth(params: PaymentParamsType) {
+    try {
+        const response = await axios.post(`${url}/payment/eth/${params.userId}`, {
+            products: params.products,
+        });
+        const result: { success: boolean } = response.data;
+        return {
+            success: "true",
+        };
+    } catch (error) {
+        return {
+            success: "false",
+        };
+    }
 }
 
 export async function getUser(userId: number) {
@@ -78,7 +100,7 @@ export async function getOrders(userId: number | null) {
         const response = await axios.get(`${url}/order/${userId}`);
         return response.data;
     } else {
-        console.error("User is not found")
+        console.error("User is not found");
     }
 }
 

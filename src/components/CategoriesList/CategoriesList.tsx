@@ -21,9 +21,9 @@ export function CategoriesList({
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     useEffect(() => {
-        document.body.classList.toggle('no-scroll', isOpen);
+        document.body.classList.toggle("no-scroll", isOpen);
         return () => {
-            document.body.classList.remove('no-scroll');
+            document.body.classList.remove("no-scroll");
         };
     }, [isOpen]);
 
@@ -34,7 +34,7 @@ export function CategoriesList({
             );
             setProducts(response.data);
             setActiveCategoryIndex(index);
-            setIsOpen(!isOpen);
+            setIsOpen(false);
             console.log(response.data);
         } catch (error) {
             console.error("Error fetching products by category:", error);
@@ -69,8 +69,13 @@ export function CategoriesList({
     return (
         <section className="categories-section">
             <div className="categories-list">
-                <h1>Categories</h1>
-                <div className="categories-open-btn" onClick={handleOpen}></div>
+                <div className="categories-menu__section">
+                    <div
+                        className="categories-open-btn"
+                        onClick={handleOpen}
+                    ></div>
+                    <h1>Categories</h1>
+                </div>
                 {isOpen && (
                     <div className="categories-overlay">
                         <div className="categories-content">

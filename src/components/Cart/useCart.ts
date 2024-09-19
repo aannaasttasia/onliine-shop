@@ -23,19 +23,15 @@ export function useCart() {
     }, [token]);
 
     useEffect(() => {
-        if (userId === null) {
-            setCart([]);
-            setCartCount(0);
-        } else {
-            const cartStorageString = localStorage.getItem(`cartProducts_${userId}`);
-            if (cartStorageString) {
-                const data = JSON.parse(cartStorageString);
-                setCart(data);
-                setCartCount(
-                    data.reduce((total: number, product: ProductType) => total + product.quantity, 0)
-                );
-           }
+        const cartStorageString = localStorage.getItem(`cartProducts_${userId}`);
+        if (cartStorageString) {
+            const data = JSON.parse(cartStorageString);
+            setCart(data);
+            setCartCount(
+                data.reduce((total: number, product: ProductType) => total + product.quantity, 0)
+            );
         }
+        
     }, [userId]);
 
 

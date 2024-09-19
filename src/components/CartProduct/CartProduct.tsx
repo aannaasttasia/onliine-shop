@@ -1,10 +1,10 @@
-import { Component, useState } from "react";
+import { Component, useEffect, useState } from "react";
 import "@/app/globals.css";
 import "./css/CartProduct.scss";
 import { ProductType } from "../Product/Product";
 import { useCart } from "../Cart/useCart";
 
-const CartProduct = ({ product }: { product: ProductType }) => {
+const CartProduct = ({ product, quantity }: { product: ProductType, quantity: number }) => {
     const { removeFromCart, addToCart } = useCart();
 
     const handleAddToCart = () => {
@@ -33,6 +33,7 @@ const CartProduct = ({ product }: { product: ProductType }) => {
                 >
                     -
                 </button>
+                <div className="product-quantity">{quantity}</div>
                 <button className="product__buy-button" onClick={handleAddToCart}>
                     +
                 </button>

@@ -53,6 +53,15 @@
     min-height: 82vh;
 }
 
+.orders{
+    color:#a0a0a0;
+    font-size: 20px;
+}
+
+.profile-orders:hover{
+    color:#121212;
+}
+
 @media (max-width: 750px) {
     .account__container {
         grid-template-columns: 1fr;

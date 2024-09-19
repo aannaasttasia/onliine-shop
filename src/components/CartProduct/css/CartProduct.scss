@@ -29,6 +29,7 @@ figure {
     position: relative;
     display: flex;
     justify-content: space-around;
+    
 }
 
 .buy-button {
@@ -48,8 +49,30 @@ figure {
     color: #4d4d4d;
     border: none;
     cursor: pointer;
+    border-radius: 10px;
+    font-size: 19px;
 }
 
+.product__buy-button:active{
+    transform: scale(.9);
+
+}
+.product-quantity{
+    align-content: center;
+    color: #4d4d4d95;
+}
+
+.product-quantity:active{
+    transform: scale(.9);
+}
+
+.product-quantity {
+    transition: transform 0.2s ease-in-out;
+}
+
+.product-quantity.scaled {
+    transform: scale(1.1);
+}
 @media (max-width: 950px) {
     .product {
       padding: 10px 10px;

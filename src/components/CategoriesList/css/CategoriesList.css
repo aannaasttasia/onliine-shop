@@ -67,8 +67,8 @@ li {
   .categories-open-btn {
     display: block;
     position: fixed;
+    top: 100px;
     left: 0;
-    top: 50px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

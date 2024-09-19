@@ -19,6 +19,12 @@ const Product = ({ product }: { product: ProductType }) => {
     const { addToCart } = useCart();
 
     useEffect(() => {
+        const cartButton = document.querySelectorAll(".product__cart-btn")
+        cartButton.forEach(button=>{
+            button.addEventListener('click', ()=>{
+                button.classList.add("clicked")
+            })
+        })
         function handler(event: MouseEvent) {
             if (
                 overlayProductRef.current &&
@@ -30,11 +36,13 @@ const Product = ({ product }: { product: ProductType }) => {
         }
         window.addEventListener("click", handler);
         return () => window.removeEventListener("click", handler);
+        
     }, []);
 
     const handleItemClick = () => {
         setShowProductInfo(true);
     };
+
     const handleAddToCart = () => {
         addToCart(product);
         console.log(product);
@@ -52,10 +60,13 @@ const Product = ({ product }: { product: ProductType }) => {
                         <p className="product-price">${product.price}</p>
                     </figcaption>
                 </figure>
-                <div className="product-btn">
-                    <button className="buy-button" onClick={handleAddToCart}>
+                <div className="product__cart-btn" onClick={handleAddToCart}>
+                    <span className="add__to-cart">
                         Add to cart
-                    </button>
+                    </span>
+                    <span className="added">Added</span>
+                    <i className="fas fa-shopping-cart"></i>
+                    <i className="fas fa-box"></i>
                 </div>
             </div>
             {showProductInfo && (
